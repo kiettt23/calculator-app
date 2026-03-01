@@ -1,7 +1,9 @@
 /* ========== State ========== */
 const STORAGE_KEY = 'phieu-can-gas-data';
 const TARE_DB_KEY = 'phieu-can-gas-tare-db';
+const HISTORY_KEY = 'phieu-can-gas-history';
 const DEFAULT_ROWS = 40;
+const MAX_HISTORY = 50;
 
 let state = {
   date: new Date().toISOString().split('T')[0],
@@ -80,16 +82,32 @@ function loadData() {
   }
 }
 
+function safeSave(key, value) {
+  try {
+    localStorage.setItem(key, value);
+  } catch (e) {
+    // Storage full — delete oldest history entries and retry
+    const history = getHistory();
+    if (history.length > 0) {
+      history.pop();
+      localStorage.setItem(HISTORY_KEY, JSON.stringify(history));
+      showToast('B\u1ed9 nh\u1edb \u0111\u1ea7y, \u0111\u00e3 x\u00f3a phi\u1ebfu c\u0169 nh\u1ea5t');
+      try {
+        localStorage.setItem(key, value);
+      } catch { /* give up */ }
+    }
+  }
+}
+
 function saveData() {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
-  showToast('\u0110\u00e3 l\u01b0u th\u00e0nh c\u00f4ng!');
+  safeSave(STORAGE_KEY, JSON.stringify(state));
 }
 
 let autoSaveTimer;
 function autoSave() {
   clearTimeout(autoSaveTimer);
   autoSaveTimer = setTimeout(() => {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    safeSave(STORAGE_KEY, JSON.stringify(state));
   }, 800);
 }
 
@@ -141,18 +159,12 @@ function createCard(index) {
 }
 
 function getCardClass(gas) {
-  let cls = 'cylinder-card';
-  if (gas === null) return cls;
-  cls += ' has-data';
-  if (gas < 0) cls += ' error';
-  else if (gas > 30) cls += ' warning';
-  return cls;
+  if (gas === null) return 'cylinder-card';
+  return 'cylinder-card has-data';
 }
 
 function buildCardHTML(index, c, gas) {
-  const resultClass = gas === null
-    ? 'empty'
-    : (gas < 0 ? 'error' : (gas > 30 ? 'warning' : ''));
+  const resultClass = gas === null ? 'empty' : '';
   const resultText = gas === null
     ? '--'
     : `${gas.toFixed(1)} <span class="unit">kg</span>`;
@@ -257,7 +269,7 @@ function updateCardResult(index) {
   const result = card.querySelector('.card-result');
   if (gas !== null) {
     result.innerHTML = `${gas.toFixed(1)} <span class="unit">kg</span>`;
-    result.className = `card-result ${gas < 0 ? 'error' : (gas > 30 ? 'warning' : '')}`;
+    result.className = 'card-result';
     card.className = getCardClass(gas);
   } else {
     result.innerHTML = '--';
@@ -304,14 +316,185 @@ function removeRow(index) {
 
 function clearAll() {
   if (!confirm('X\u00f3a h\u1ebft d\u1eef li\u1ec7u v\u00e0 t\u1ea1o phi\u1ebfu m\u1edbi?')) return;
+
+  // Auto-archive current form if it has data
+  archiveCurrentForm();
+
   state.cylinders = createEmptyRows(DEFAULT_ROWS);
   state.date = new Date().toISOString().split('T')[0];
-  document.getElementById('formDate').value = state.date;
+
+  // Update Vietnamese date picker
+  const today = new Date();
+  document.getElementById('formDay').value = today.getDate();
+  document.getElementById('formMonth').value = today.getMonth() + 1;
+  document.getElementById('formYear').value = today.getFullYear();
+
   renderAllCards();
   updateSummary();
   saveData();
   showToast('\u0110\u00e3 t\u1ea1o phi\u1ebfu m\u1edbi!');
   window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+/* ========== History (Lịch sử phiếu) ========== */
+function getHistory() {
+  try {
+    return JSON.parse(localStorage.getItem(HISTORY_KEY) || '[]');
+  } catch { return []; }
+}
+
+function saveHistory(history) {
+  safeSave(HISTORY_KEY, JSON.stringify(history));
+}
+
+function archiveCurrentForm() {
+  const hasData = state.cylinders.some(c => c.seri || c.total || c.tare);
+  if (!hasData) return;
+
+  const history = getHistory();
+
+  // Count filled cylinders & total gas
+  let totalGas = 0;
+  let filledCount = 0;
+  state.cylinders.forEach(c => {
+    const g = calcGas(c);
+    if (g !== null) { totalGas += g; filledCount++; }
+  });
+
+  history.unshift({
+    id: Date.now(),
+    date: state.date,
+    cylinders: JSON.parse(JSON.stringify(state.cylinders)),
+    totalGas: Math.round(totalGas * 10) / 10,
+    filledCount: filledCount,
+    savedAt: new Date().toISOString()
+  });
+
+  // Keep only last MAX_HISTORY entries
+  if (history.length > MAX_HISTORY) history.length = MAX_HISTORY;
+  saveHistory(history);
+}
+
+function showHistory() {
+  const history = getHistory();
+  const modal = document.getElementById('historyModal');
+  const list = document.getElementById('historyList');
+
+  if (history.length === 0) {
+    list.innerHTML = '<div class="history-empty">Ch\u01b0a c\u00f3 phi\u1ebfu n\u00e0o \u0111\u01b0\u1ee3c l\u01b0u</div>';
+  } else {
+    list.innerHTML = history.map((item, i) => {
+      const dateStr = formatDateVN(item.date);
+      const timeStr = formatTimeVN(item.savedAt);
+      // Build detail rows for cylinders that have data
+      const detailRows = item.cylinders
+        .map((c, ci) => {
+          if (!c.seri && !c.total && !c.tare) return '';
+          const g = calcGas(c);
+          return `<tr>
+            <td>${ci + 1}</td>
+            <td>${escapeHTML(c.seri)}</td>
+            <td>${c.total || ''}</td>
+            <td>${c.tare || ''}</td>
+            <td><strong>${g !== null ? g.toFixed(1) : ''}</strong></td>
+          </tr>`;
+        })
+        .filter(Boolean)
+        .join('');
+
+      return `<div class="history-item-wrap">
+        <div class="history-item" onclick="toggleHistoryDetail(${i})" role="button" tabindex="0">
+          <div class="history-date">
+            ${dateStr}
+            <span class="history-time">${timeStr}</span>
+          </div>
+          <div class="history-info">
+            <span class="history-gas">${item.totalGas} kg</span>
+            <span class="history-count">${item.filledCount} b\u00ecnh</span>
+          </div>
+          <button class="history-delete" onclick="event.stopPropagation();deleteHistory(${i})"
+            type="button" aria-label="X\u00f3a phi\u1ebfu">&times;</button>
+        </div>
+        <div class="history-detail" id="historyDetail-${i}">
+          <table class="history-table">
+            <thead><tr>
+              <th>STT</th><th>Seri</th><th>C\u00e2n TB</th><th>TL V\u1ecf</th><th>Gas T\u1ed3n</th>
+            </tr></thead>
+            <tbody>${detailRows}</tbody>
+          </table>
+          <button class="btn btn-history-load" onclick="loadHistory(${i})" type="button">
+            M\u1edf phi\u1ebfu n\u00e0y
+          </button>
+        </div>
+      </div>`;
+    }).join('');
+  }
+
+  modal.classList.add('show');
+}
+
+function toggleHistoryDetail(index) {
+  const detail = document.getElementById(`historyDetail-${index}`);
+  if (!detail) return;
+  detail.classList.toggle('show');
+}
+
+function closeHistory() {
+  document.getElementById('historyModal').classList.remove('show');
+}
+
+function loadHistory(index) {
+  const history = getHistory();
+  const item = history[index];
+  if (!item) return;
+
+  if (state.cylinders.some(c => c.seri || c.total || c.tare)) {
+    if (!confirm('Phi\u1ebfu hi\u1ec7n t\u1ea1i s\u1ebd b\u1ecb thay th\u1ebf. Ti\u1ebfp t\u1ee5c?')) return;
+    archiveCurrentForm();
+  }
+
+  state.date = item.date;
+  state.cylinders = JSON.parse(JSON.stringify(item.cylinders));
+
+  // Update date picker
+  const parts = (item.date || '').split('-');
+  if (parts.length === 3) {
+    document.getElementById('formYear').value = parseInt(parts[0]);
+    document.getElementById('formMonth').value = parseInt(parts[1]);
+    document.getElementById('formDay').value = parseInt(parts[2]);
+  }
+
+  renderAllCards();
+  updateSummary();
+  saveData();
+  closeHistory();
+  showToast('\u0110\u00e3 t\u1ea3i phi\u1ebfu c\u0169!');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function deleteHistory(index) {
+  if (!confirm('X\u00f3a phi\u1ebfu n\u00e0y kh\u1ecfi l\u1ecbch s\u1eed?')) return;
+  const history = getHistory();
+  history.splice(index, 1);
+  saveHistory(history);
+  showHistory(); // refresh list
+  showToast('\u0110\u00e3 x\u00f3a!');
+}
+
+function formatDateVN(dateStr) {
+  if (!dateStr) return '';
+  const parts = dateStr.split('-');
+  if (parts.length !== 3) return dateStr;
+  return `${parseInt(parts[2])}/${parseInt(parts[1])}/${parts[0]}`;
+}
+
+function formatTimeVN(isoStr) {
+  if (!isoStr) return '';
+  const d = new Date(isoStr);
+  if (isNaN(d)) return '';
+  const h = String(d.getHours()).padStart(2, '0');
+  const m = String(d.getMinutes()).padStart(2, '0');
+  return `${h}:${m}`;
 }
 
 /* ========== Duplicate Check ========== */

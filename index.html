@@ -51,14 +51,29 @@
 
   <div class="cylinder-list" id="cylinderList" role="list" aria-label="Danh sách bình gas"></div>
 
+  <div class="auto-save-hint no-print" role="status" aria-live="polite">
+    <span class="auto-save-dot"></span> Tự động lưu
+  </div>
+
   <div class="actions no-print">
-    <button class="btn btn-add" onclick="addRow()" type="button">+ Thêm bình</button>
-    <button class="btn btn-primary" onclick="printForm()" type="button">IN PHIẾU</button>
+    <button class="btn btn-add" onclick="addRow()" type="button">+ Thêm bình mới</button>
+    <button class="btn btn-primary" onclick="printForm()" type="button">In phiếu ra giấy</button>
     <div class="btn-row">
-      <button class="btn btn-secondary" onclick="saveData()" type="button">Lưu lại</button>
-      <button class="btn btn-secondary" onclick="exportCSV()" type="button">Xuất Excel</button>
+      <button class="btn btn-secondary" onclick="showHistory()" type="button">Xem phiếu cũ</button>
+      <button class="btn btn-secondary" onclick="exportCSV()" type="button">Tải file Excel</button>
     </div>
-    <button class="btn btn-danger" onclick="clearAll()" type="button">Tạo phiếu mới</button>
+    <button class="btn btn-danger" onclick="clearAll()" type="button">Xóa hết, làm phiếu mới</button>
+  </div>
+
+  <div class="history-modal" id="historyModal" role="dialog" aria-label="Phiếu đã lưu">
+    <div class="history-backdrop" onclick="closeHistory()"></div>
+    <div class="history-panel">
+      <div class="history-header">
+        <h2>Phiếu đã lưu</h2>
+        <button class="history-close" onclick="closeHistory()" type="button" aria-label="Đóng">&times;</button>
+      </div>
+      <div class="history-list" id="historyList"></div>
+    </div>
   </div>
 
   <div class="print-view" id="printView"></div>
