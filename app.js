@@ -133,9 +133,14 @@ function getTareWeight(seri) {
 }
 
 /* ========== Calculation ========== */
+function parseNum(v) {
+  if (!v && v !== 0) return NaN;
+  return parseFloat(String(v).replace(',', '.'));
+}
+
 function calcGas(c) {
-  const total = parseFloat(c.total);
-  const tare = parseFloat(c.tare);
+  const total = parseNum(c.total);
+  const tare = parseNum(c.tare);
   if (isNaN(total) || isNaN(tare)) return null;
   return Math.round((total - tare) * 100) / 100;
 }
