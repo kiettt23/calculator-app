@@ -8,14 +8,24 @@
   <meta name="format-detection" content="telephone=no">
   <meta name="theme-color" content="#1B2469">
   <link rel="manifest" href="manifest.json">
-  <link rel="apple-touch-icon" href="icon-180.png">
+  <link rel="apple-touch-icon" href="assets/icon-180.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
   <title>Phiếu Cân Gas - Petrolimex</title>
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/form.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/confirm.css">
+  <link rel="stylesheet" href="css/history.css">
+  <link rel="stylesheet" href="css/toast.css">
+  <link rel="stylesheet" href="css/responsive.css">
+  <link rel="stylesheet" href="css/print.css">
 </head>
 <body>
+  <div class="offline-bar" id="offlineBar">Không có kết nối mạng</div>
+
   <header class="app-header" role="banner">
     <h1>PHIẾU CÂN GAS</h1>
     <p>Tại trạm nạp - Gas Petrolimex</p>
@@ -62,6 +72,7 @@
   </div>
 
   <div class="actions no-print">
+    <button class="btn btn-install" id="btnInstall" onclick="installApp()" type="button" style="display:none">Cài ứng dụng lên màn hình</button>
     <button class="btn btn-add" onclick="addRow()" type="button">+ Thêm bình mới</button>
     <button class="btn btn-primary" onclick="printForm()" type="button">In phiếu ra giấy</button>
     <div class="btn-row">
@@ -69,6 +80,8 @@
       <button class="btn btn-secondary" onclick="exportCSV()" type="button">Tải file Excel</button>
     </div>
     <button class="btn btn-danger" onclick="clearAll()" type="button">Xóa hết, làm phiếu mới</button>
+    <!-- DEV: xóa nút này sau khi test xong -->
+    <button class="btn btn-dev" onclick="fillRandomData()" type="button">Điền dữ liệu test ngẫu nhiên</button>
   </div>
 
   <div class="history-modal" id="historyModal" role="dialog" aria-label="Phiếu đã lưu">
@@ -85,6 +98,17 @@
   <div class="print-view" id="printView"></div>
   <div class="toast" id="toast" role="alert" aria-live="assertive"></div>
 
-  <script src="app.js"></script>
+  <!-- Fix #9: Custom confirm modal -->
+  <div class="confirm-overlay" id="confirmOverlay" role="dialog" aria-modal="true" aria-labelledby="confirmMessage">
+    <div class="confirm-box">
+      <p class="confirm-message" id="confirmMessage"></p>
+      <div class="confirm-actions">
+        <button class="btn-confirm-cancel" id="confirmCancel" type="button">Hủy</button>
+        <button class="btn-confirm-ok" id="confirmOk" type="button">Đồng ý</button>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="js/main.js"></script>
 </body>
 </html>
