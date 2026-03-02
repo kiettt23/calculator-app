@@ -1,5 +1,5 @@
-const CACHE_NAME = 'phieu-can-gas-v8';
-const FONTS_CACHE = 'google-fonts-v1';
+const CACHE_NAME = 'phieu-can-gas';
+const FONTS_CACHE = 'google-fonts';
 
 const FILES_TO_CACHE = [
   './',
@@ -37,17 +37,7 @@ self.addEventListener('install', (e) => {
   self.skipWaiting();
 });
 
-/* Remove old caches on activate */
-self.addEventListener('activate', (e) => {
-  e.waitUntil(
-    caches.keys().then((keys) =>
-      Promise.all(
-        keys
-          .filter((k) => k !== CACHE_NAME && k !== FONTS_CACHE)
-          .map((k) => caches.delete(k))
-      )
-    )
-  );
+self.addEventListener('activate', () => {
   self.clients.claim();
 });
 
@@ -71,8 +61,14 @@ self.addEventListener('fetch', (e) => {
     return;
   }
 
-  /* App files: cache-first */
+  /* App files: network-first, cache as offline fallback */
   e.respondWith(
-    caches.match(e.request).then((cached) => cached || fetch(e.request))
+    fetch(e.request)
+      .then((response) => {
+        const clone = response.clone();
+        caches.open(CACHE_NAME).then((cache) => cache.put(e.request, clone));
+        return response;
+      })
+      .catch(() => caches.match(e.request))
   );
 });
