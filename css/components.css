@@ -225,14 +225,14 @@
 
 /* Secondary: Navy tint */
 .btn-secondary {
-  background: var(--plx-navy-50);
+  background: #fff;
   color: var(--plx-navy);
   border: 1.5px solid var(--plx-navy-100);
 }
 
-/* Danger: Red border on white */
+/* Danger: Red border */
 .btn-danger {
-  background: #fff;
+  background: var(--plx-navy-50);
   color: var(--red-700);
   border: 1.5px solid var(--red-100);
 }

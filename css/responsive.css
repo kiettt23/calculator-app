@@ -15,11 +15,14 @@
     padding: 16px;
     gap: 12px;
   }
+  .add-row-wrap { max-width: 600px; margin: 0 auto; }
+  .section-divider { max-width: 600px; margin: 20px auto; }
   .actions {
     max-width: 576px;
     margin: 0 auto;
     padding: 20px 16px calc(20px + var(--safe-bottom));
   }
+  .auto-save-hint { max-width: 576px; margin: 0 auto; }
 
   /* History modal centered on desktop */
   .history-modal { align-items: center; }
@@ -50,20 +53,24 @@
     gap: 12px;
     padding: 20px;
   }
+  .add-row-wrap { max-width: 900px; }
+  .section-divider { max-width: 900px; margin: 20px auto; }
   .actions {
     max-width: 876px;
     flex-direction: row;
     flex-wrap: wrap;
   }
-  .actions .btn { flex: 1; min-width: 180px; }
-  .actions .btn-primary { flex: 2; }
+  .actions > .btn { flex: 1; min-width: 180px; }
   .actions .btn-row { flex: 2; min-width: 360px; }
+  .auto-save-hint { max-width: 876px; }
 }
 
 /* ========== Wide Desktop: 1440px+ — 3 cột ========== */
 @media (min-width: 1440px) {
   .app-header, .summary-bar { max-width: 1080px; }
   .form-meta, .actions { max-width: 1056px; }
+  .add-row-wrap, .section-divider { max-width: 1080px; }
+  .auto-save-hint { max-width: 1056px; }
   .cylinder-list {
     max-width: 1080px;
     grid-template-columns: 1fr 1fr 1fr;
