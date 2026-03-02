@@ -1,0 +1,69 @@
+/* ========== Custom Confirm Modal (Fix #9) ========== */
+.confirm-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 500;
+  padding: 20px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.18s ease;
+}
+.confirm-overlay.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+.confirm-box {
+  background: var(--bg-card);
+  border-radius: var(--radius);
+  padding: 24px 20px 20px;
+  width: 100%;
+  max-width: 320px;
+  box-shadow: 0 8px 32px rgba(27, 36, 105, 0.22);
+  transform: translateY(8px);
+  transition: transform 0.18s ease;
+}
+.confirm-overlay.show .confirm-box {
+  transform: translateY(0);
+}
+.confirm-message {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 20px;
+  text-align: center;
+  line-height: 1.5;
+}
+.confirm-actions {
+  display: flex;
+  gap: 10px;
+}
+.btn-confirm-cancel,
+.btn-confirm-ok {
+  flex: 1;
+  padding: 14px 10px;
+  border-radius: 8px;
+  font-size: 0.94rem;
+  font-weight: 600;
+  cursor: pointer;
+  min-height: 50px;
+  font-family: inherit;
+  transition: opacity 0.15s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+.btn-confirm-cancel {
+  background: var(--bg-page);
+  color: var(--text-secondary);
+  border: 1.5px solid var(--border);
+}
+.btn-confirm-ok {
+  background: var(--plx-orange);
+  color: white;
+  border: none;
+  box-shadow: 0 3px 10px rgba(232, 88, 32, 0.25);
+}
+.btn-confirm-cancel:active,
+.btn-confirm-ok:active { opacity: 0.82; }

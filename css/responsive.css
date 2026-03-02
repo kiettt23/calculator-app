@@ -1,0 +1,79 @@
+/* ========== Tablet: 768px+ ========== */
+@media (min-width: 768px) {
+  body { background: #ecedf5; }
+  .app-header {
+    max-width: 600px;
+    margin: 24px auto 0;
+    border-radius: 12px 12px 0 0;
+    padding-top: 22px;
+  }
+  .summary-bar { max-width: 600px; margin: 0 auto; }
+  .form-meta { max-width: 576px; margin: 16px auto; }
+  .cylinder-list {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 16px;
+    gap: 12px;
+  }
+  .actions {
+    max-width: 576px;
+    margin: 0 auto;
+    padding: 20px 16px calc(20px + var(--safe-bottom));
+  }
+
+  /* History modal centered on desktop */
+  .history-modal { align-items: center; }
+  .history-panel {
+    border-radius: 16px;
+    max-height: 70vh;
+    margin: 0 20px;
+  }
+}
+
+/* ========== Desktop: 1024px+ — 2 cột ========== */
+@media (min-width: 1024px) {
+  .app-header {
+    max-width: 900px;
+    border-radius: 14px 14px 0 0;
+    margin-top: 32px;
+    padding: 26px 24px;
+  }
+  .app-header h1 { font-size: 1.5rem; }
+  .summary-bar { max-width: 900px; padding: 16px 28px; }
+  .summary-value { font-size: 2rem; }
+  .form-meta { max-width: 876px; margin: 20px auto; padding: 20px 24px; }
+  .date-picker-vn { max-width: 400px; }
+  .cylinder-list {
+    max-width: 900px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    padding: 20px;
+  }
+  .actions {
+    max-width: 876px;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+  .actions .btn { flex: 1; min-width: 180px; }
+  .actions .btn-primary { flex: 2; }
+  .actions .btn-row { flex: 2; min-width: 360px; }
+}
+
+/* ========== Wide Desktop: 1440px+ — 3 cột ========== */
+@media (min-width: 1440px) {
+  .app-header, .summary-bar { max-width: 1080px; }
+  .form-meta, .actions { max-width: 1056px; }
+  .cylinder-list {
+    max-width: 1080px;
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
+
+/* ========== Reduced Motion ========== */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}

@@ -1,0 +1,195 @@
+/* ========== History Modal ========== */
+.history-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 500;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  visibility: hidden;
+  pointer-events: none;
+}
+.history-modal.show {
+  visibility: visible;
+  pointer-events: auto;
+}
+.history-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0);
+  transition: background 0.3s ease;
+}
+.history-modal.show .history-backdrop {
+  background: rgba(0, 0, 0, 0.45);
+}
+.history-panel {
+  position: relative;
+  width: 100%;
+  max-width: 600px;
+  max-height: 75vh;
+  background: var(--bg-card);
+  border-radius: 16px 16px 0 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transform: translateY(100%);
+  transition: transform 0.3s ease;
+  padding-bottom: var(--safe-bottom);
+}
+.history-modal.show .history-panel {
+  transform: translateY(0);
+}
+.history-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 20px 14px;
+  border-bottom: 2px solid var(--plx-navy-50);
+  flex-shrink: 0;
+}
+.history-header h2 {
+  font-size: 1.11rem;
+  font-weight: 700;
+  color: var(--plx-navy);
+}
+.history-close {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--text-muted);
+  border-radius: 8px;
+}
+.history-close:active { background: var(--plx-navy-50); }
+.history-list {
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  padding: 12px;
+  flex: 1;
+}
+.history-empty {
+  text-align: center;
+  padding: 40px 20px;
+  color: var(--text-muted);
+  font-size: 1rem;
+}
+.history-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  background: var(--plx-navy-50);
+  border-radius: 10px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  border: 1.5px solid transparent;
+  transition: border-color 0.2s ease;
+  min-height: 54px;
+}
+.history-item:active {
+  border-color: var(--plx-navy);
+  background: var(--plx-navy-100);
+}
+.history-date {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--plx-navy);
+  white-space: nowrap;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.history-time {
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: var(--text-muted);
+}
+.history-info {
+  flex: 1;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+.history-gas {
+  font-size: 0.94rem;
+  font-weight: 700;
+  color: var(--plx-orange);
+}
+.history-count {
+  font-size: 0.83rem;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+.history-delete {
+  background: none;
+  border: 1.5px solid transparent;
+  color: var(--text-muted);
+  font-size: 1.2rem;
+  width: 44px;
+  height: 44px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+.history-delete:active {
+  background: var(--red-100);
+  color: var(--red-700);
+}
+
+/* ========== History Detail (expandable) ========== */
+.history-detail {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+  background: var(--bg-card);
+  border-radius: 0 0 10px 10px;
+  margin-top: -10px;
+  margin-bottom: 10px;
+}
+.history-detail.show {
+  max-height: 600px;
+  overflow-y: auto;
+  border: 1.5px solid var(--plx-navy-100);
+  border-top: none;
+  padding: 12px;
+}
+.history-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.83rem;
+}
+.history-table th,
+.history-table td {
+  padding: 6px 8px;
+  text-align: center;
+  border-bottom: 1px solid var(--plx-navy-50);
+}
+.history-table th {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+.history-table td { color: var(--text-primary); }
+.btn-history-load {
+  width: 100%;
+  margin-top: 12px;
+  padding: 14px;
+  background: var(--plx-navy);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  min-height: 48px;
+  font-family: inherit;
+}
+.btn-history-load:active { opacity: 0.85; }

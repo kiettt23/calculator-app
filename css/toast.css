@@ -1,0 +1,26 @@
+/* ========== Toast Notification ========== */
+.toast {
+  position: fixed;
+  top: calc(24px + var(--safe-top));
+  left: 50%;
+  transform: translateX(-50%) translateY(-80px);
+  background: var(--plx-navy);
+  color: white;
+  padding: 12px 24px;
+  border-radius: 30px;
+  font-size: 0.94rem;
+  font-weight: 600;
+  opacity: 0;
+  transition: all 0.3s ease;
+  z-index: 1000;
+  pointer-events: none;
+  box-shadow: 0 4px 16px rgba(27,36,105,0.25);
+  border-left: 3px solid var(--plx-orange);
+}
+.toast.show {
+  transform: translateX(-50%) translateY(0);
+  opacity: 1;
+}
+
+/* ========== Print View (hidden in normal mode) ========== */
+.print-view { display: none; }

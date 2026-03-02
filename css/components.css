@@ -1,0 +1,243 @@
+/* ========== Cylinder Cards ========== */
+.cylinder-list {
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.cylinder-card {
+  background: var(--bg-card);
+  border-radius: var(--radius);
+  padding: 16px 18px;
+  box-shadow: var(--shadow);
+  border-left: 4px solid var(--border);
+  transition: border-color 0.2s ease;
+}
+.cylinder-card.has-data {
+  border-left-color: var(--plx-orange);
+}
+
+/* ========== Card Header ========== */
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 14px;
+}
+.card-number {
+  background: var(--plx-navy);
+  color: white;
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.94rem;
+  flex-shrink: 0;
+}
+.card-result {
+  font-size: 1.44rem;
+  font-weight: 700;
+  color: var(--plx-navy);
+  text-align: right;
+  flex: 1;
+  padding: 0 12px;
+}
+.card-result .unit {
+  font-size: 0.89rem;
+  font-weight: 500;
+}
+.card-result.empty {
+  color: var(--text-muted);
+  font-size: 1rem;
+}
+
+/* ========== Delete Button: 44px touch target ========== */
+.card-delete {
+  background: none;
+  border: 1.5px solid transparent;
+  color: var(--text-muted);
+  font-size: 1.33rem;
+  cursor: pointer;
+  width: 44px;
+  height: 44px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: all 0.2s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+.card-delete:active {
+  background: var(--red-100);
+  color: var(--red-700);
+  border-color: var(--red-100);
+}
+
+/* ========== Input Groups ========== */
+.input-row {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+.input-row:last-child { margin-bottom: 0; }
+.input-group { flex: 1; }
+.input-group label {
+  display: block;
+  font-size: 0.83rem;
+  color: var(--text-secondary);
+  margin-bottom: 6px;
+  font-weight: 600;
+}
+.input-group input {
+  width: 100%;
+  padding: 14px 12px;
+  border: 2px solid var(--border);
+  border-radius: 8px;
+  font-size: 1.11rem;
+  text-align: center;
+  color: var(--text-primary);
+  background: var(--bg-card);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  min-height: 52px;
+  -webkit-appearance: none;
+  appearance: none;
+  font-family: inherit;
+}
+.input-group input:focus {
+  outline: none;
+  border-color: var(--plx-navy);
+  background: var(--plx-navy-50);
+  box-shadow: 0 0 0 3px rgba(27, 36, 105, 0.12);
+}
+.input-group input::placeholder {
+  color: #cbd5e1;
+  font-size: 0.89rem;
+}
+
+/* ========== Gas Negative (Fix #3) ========== */
+.cylinder-card.gas-negative {
+  border-left-color: var(--red-700);
+}
+.card-result.negative {
+  color: var(--red-700);
+}
+.gas-warn {
+  font-size: 0.83rem;
+  color: var(--red-700);
+  background: var(--red-100);
+  padding: 6px 12px;
+  border-radius: 6px;
+  margin-bottom: 12px;
+  font-weight: 600;
+}
+
+/* ========== Duplicate Warning ========== */
+.duplicate-warn {
+  font-size: 0.78rem;
+  color: var(--red-700);
+  margin-top: 4px;
+  font-weight: 600;
+  display: none;
+}
+.duplicate-warn.show { display: block; }
+
+/* ========== Action Buttons ========== */
+.actions {
+  padding: 16px 12px calc(16px + var(--safe-bottom));
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.btn {
+  padding: 16px 20px;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.06rem;
+  font-weight: 600;
+  cursor: pointer;
+  text-align: center;
+  transition: opacity 0.15s ease, transform 0.1s ease;
+  min-height: 54px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  -webkit-tap-highlight-color: transparent;
+  font-family: inherit;
+}
+.btn:active {
+  opacity: 0.85;
+  transform: scale(0.98);
+}
+/* Primary: Orange */
+.btn-primary {
+  background: var(--plx-orange);
+  color: white;
+  font-size: 1.11rem;
+  min-height: 58px;
+  font-weight: 700;
+  box-shadow: 0 4px 14px rgba(232, 88, 32, 0.28);
+}
+/* Secondary: Navy tint */
+.btn-secondary {
+  background: var(--plx-navy-50);
+  color: var(--plx-navy);
+  border: 1.5px solid var(--plx-navy-100);
+}
+/* Danger: Red border on white */
+.btn-danger {
+  background: #fff;
+  color: var(--red-700);
+  border: 1.5px solid var(--red-100);
+}
+/* Add: Dashed navy border */
+.btn-add {
+  background: var(--bg-card);
+  color: var(--plx-navy);
+  border: 2px dashed var(--plx-navy-100);
+  min-height: 50px;
+}
+.btn-row {
+  display: flex;
+  gap: 10px;
+}
+.btn-row .btn { flex: 1; }
+
+/* ========== Install Button ========== */
+.btn-install {
+  background: var(--plx-navy);
+  color: white;
+  font-weight: 700;
+  box-shadow: 0 4px 14px rgba(27, 36, 105, 0.22);
+}
+
+/* ========== Dev Test Button ========== */
+.btn-dev {
+  background: transparent;
+  color: var(--text-muted);
+  border: 1.5px dashed var(--border);
+  font-size: 0.83rem;
+  min-height: 44px;
+}
+
+/* ========== Auto-save Indicator ========== */
+.auto-save-hint {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 8px 12px;
+  font-size: 0.83rem;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+.auto-save-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #22c55e;
+  flex-shrink: 0;
+}

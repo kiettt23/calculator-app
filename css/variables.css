@@ -1,0 +1,44 @@
+/* ========================================
+   PHIẾU CÂN GAS - Petrolimex 2026 Rebrand
+   Innovative Blue: #1B2469
+   Energetic Orange: #E85820
+   Font: Be Vietnam Pro
+   Target: iPhone 11 (414×896 CSS px)
+   ======================================== */
+
+:root {
+  /* Petrolimex 2026 - Innovative Blue */
+  --plx-navy: #1B2469;
+  --plx-navy-dark: #131b4d;
+  --plx-navy-light: #2a38a8;
+  --plx-navy-100: #d4d9f5;
+  --plx-navy-50: #eef0fb;
+
+  /* Petrolimex 2026 - Energetic Orange */
+  --plx-orange: #E85820;
+  --plx-orange-dark: #c44818;
+  --plx-orange-100: #fde8df;
+  --plx-orange-50: #fef4f0;
+
+  /* Text */
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --text-muted: #94a3b8;
+
+  /* Layout */
+  --border: #e2e8f0;
+  --border-focus: var(--plx-navy);
+  --bg-page: #f4f5f9;
+  --bg-card: #ffffff;
+  --radius: 10px;
+  --shadow: 0 1px 4px rgba(0,0,0,0.07);
+  --shadow-md: 0 4px 16px rgba(27,36,105,0.10);
+
+  /* Semantic */
+  --red-700: #b71c1c;
+  --red-100: #ffcdd2;
+
+  /* iOS safe areas */
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --safe-top: env(safe-area-inset-top, 0px);
+}
