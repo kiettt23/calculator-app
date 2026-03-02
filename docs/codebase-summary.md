@@ -3,17 +3,19 @@
 ## Cấu Trúc Tệp
 
 ```
-calculator-app/
-├── index.html              # Cấu trúc HTML
+petrolimex-calculator/
+├── index.html              # Cấu trúc HTML (90 LOC)
 ├── app.js                  # Logic ứng dụng chính (638 LOC)
-├── styles.css              # Styling (806 LOC)
-├── sw.js                   # Service Worker (34 LOC)
+├── styles.css              # Styling (765 LOC)
+├── sw.js                   # Service Worker (36 LOC)
 ├── manifest.json           # PWA manifest (14 LOC)
-├── icon.svg                # Petrolimex logo (132 LOC)
+├── icon-180.png            # Apple touch icon
+├── icon-192.png            # Android home screen icon
+├── icon-512.png            # Splash screen icon (Petrolimex 2026 logo)
 └── docs/                   # Tài liệu
 ```
 
-**Tổng LOC**: ~1,700 | **Phụ Thuộc**: 0 | **Framework**: Vanilla JS | **Build**: Không
+**Tổng LOC**: ~1,543 | **Phụ Thuộc**: 0 | **Framework**: Vanilla JS | **Build**: Không
 
 ## app.js (638 LOC) - Logic Chính
 
@@ -119,11 +121,11 @@ calculator-app/
 **showToast(msg)** - Toast 2 giây
 **initIOSKeyboardDismiss()** - Tap ngoài dismiss keyboard
 
-## styles.css (806 LOC) - Styling
+## styles.css (765 LOC) - Styling
 
 ### Variables & Reset
 - CSS variables: `--primary`, `--accent`, `--text`, `--bg`
-- Petrolimex colors: Blue #5FCAEC, Orange #F89420, Dark #0d4f66
+- Petrolimex colors (2026 rebrand): Innovative Blue #1B2469, Orange #E85820, Dark #0d4f66
 - Reset margin/padding, box-sizing: border-box
 
 ### Layout
@@ -180,7 +182,7 @@ calculator-app/
 - `<link rel="manifest">`
 - `<link rel="apple-touch-icon">`
 
-## sw.js (34 LOC) - Service Worker
+## sw.js (36 LOC) - Service Worker
 
 **Strategy**: Cache-first
 - Cache assets on install
@@ -193,7 +195,9 @@ calculator-app/
 - app.js
 - styles.css
 - manifest.json
-- icon.svg
+- icon-180.png
+- icon-192.png
+- icon-512.png
 
 ## manifest.json (14 LOC) - PWA
 
@@ -205,7 +209,11 @@ calculator-app/
   "display": "standalone",
   "theme_color": "#0d4f66",
   "background_color": "#f0f9fe",
-  "icons": [icon.svg]
+  "icons": [
+    { "src": "icon-180.png", "sizes": "180x180" },
+    { "src": "icon-192.png", "sizes": "192x192" },
+    { "src": "icon-512.png", "sizes": "512x512" }
+  ]
 }
 ```
 
@@ -267,4 +275,7 @@ updateSummary()
 
 ---
 
+---
+
 **Phiên Bản**: 1.0 | **Cập Nhật**: 02/03/2026
+**Repo**: kiettt23/petrolimex-calculator

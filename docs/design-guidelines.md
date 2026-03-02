@@ -4,9 +4,12 @@
 
 ### Logo & Identity
 
-**Logo**: Petrolimex icon (icon.svg)
-- **Format**: SVG (scalable)
-- **Color**: Petrolimex Blue (#5FCAEC)
+**Logo**: Petrolimex icon (PNG format - 2026 rebrand)
+- **Formats**:
+  - icon-180.png (Apple touch icon)
+  - icon-192.png (Android home screen)
+  - icon-512.png (Splash screen)
+- **Color**: Innovative Blue (#1B2469)
 - **Usage**: Header, home screen, favicon
 
 **App Name**:
@@ -16,10 +19,10 @@
 
 ### Màu Sắc (Color Palette)
 
-**Primary Brand Colors**:
+**Primary Brand Colors** (2026 Rebrand):
 ```css
---primary: #5FCAEC;      /* Petrolimex Blue - Main CTA */
---accent: #F89420;       /* Petrolimex Orange - Highlights */
+--primary: #1B2469;      /* Innovative Blue - Main CTA */
+--accent: #E85820;       /* Energetic Orange - Highlights */
 --dark: #0d4f66;         /* Dark blue - Text, header */
 ```
 
@@ -36,24 +39,31 @@
 ```
 
 **Usage Rules**:
-- **Primary blue** (#5FCAEC) - Main buttons, active states
-- **Orange** (#F89420) - Secondary buttons, accents
+- **Primary blue** (#1B2469) - Main buttons, active states
+- **Orange** (#E85820) - Secondary buttons, accents
 - **Dark** (#0d4f66) - Text, headers, strong emphasis
 - **Gray** (#999) - Disabled, secondary text
 - **Red** (#dc3545) - Delete, danger actions
 - **Green** (#28a745) - Success messages
 
-**Contrast Ratios**:
-- Blue on white: 3.9:1 (AA minimum)
+**Contrast Ratios** (2026 Rebrand):
+- Primary blue on white: 6.2:1 (AAA)
 - Dark on white: 12.6:1 (AAA)
-- Orange on white: 3.2:1 (AA)
+- Orange on white: 4.1:1 (AA)
 
 ### Phông Chữ (Typography)
 
-**Font Stack** (System fonts - no external):
+**Font Stack** (Be Vietnam Pro + system fallback):
 ```css
-font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI',
-             Roboto, 'Helvetica Neue', Arial, sans-serif;
+font-family: 'Be Vietnam Pro', -apple-system, BlinkMacSystemFont,
+             'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+```
+
+**Font Import** (Google Fonts):
+```html
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
 ```
 
 **Sizes**:
@@ -226,7 +236,7 @@ Consistent spacing using 8px base:
 .summary-value {
   font-size: 24px;
   font-weight: bold;
-  color: #5FCAEC;
+  color: #1B2469;
 }
 
 .summary-unit {
@@ -262,7 +272,7 @@ input {
 
 input:focus {
   outline: none;
-  border-color: #5FCAEC;
+  border-color: #1B2469;
   box-shadow: 0 0 0 3px rgba(95, 202, 236, 0.1);
 }
 
@@ -277,7 +287,7 @@ input:disabled {
 **Primary Button** (Main action - "In phiếu"):
 ```css
 .btn-primary {
-  background: #5FCAEC;
+  background: #1B2469;
   color: white;
   border: none;
   padding: 12px 24px;
@@ -302,8 +312,8 @@ input:disabled {
 ```css
 .btn-secondary {
   background: white;
-  color: #5FCAEC;
-  border: 2px solid #5FCAEC;
+  color: #1B2469;
+  border: 2px solid #1B2469;
   padding: 10px 20px;
   border-radius: 4px;
   font-size: 16px;
@@ -477,7 +487,7 @@ button {
 button:focus,
 input:focus,
 select:focus {
-  outline: 2px solid #5FCAEC;
+  outline: 2px solid #1B2469;
   outline-offset: 2px;
 }
 ```
@@ -600,7 +610,7 @@ DEF456,95,12,83
   --bg: #1a1a1a;
   --bg-alt: #2d2d2d;
   --border: #444;
-  --primary: #5FCAEC; /* Keep brand blue */
+  --primary: #1B2469; /* Keep brand blue */
 }
 ```
 

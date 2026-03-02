@@ -28,12 +28,14 @@
 ## Cấu Trúc Tệp
 
 ```
-├── index.html         # HTML structure
+├── index.html         # HTML structure (90 LOC)
 ├── app.js             # Main logic (638 LOC)
-├── styles.css         # Styling (806 LOC)
-├── sw.js              # Service worker
-├── manifest.json      # PWA manifest
-├── icon.svg           # Petrolimex logo
+├── styles.css         # Styling (765 LOC)
+├── sw.js              # Service worker (36 LOC)
+├── manifest.json      # PWA manifest (14 LOC)
+├── icon-180.png       # Apple touch icon
+├── icon-192.png       # Android home screen icon
+├── icon-512.png       # Splash screen icon (Petrolimex 2026 logo)
 └── docs/              # Documentation
 ```
 
@@ -53,8 +55,8 @@
 
 - **Responsive**: Tối ưu iPhone 11 (414px), responsive đến 1440px+
 - **Breakpoints**: 768px (1 col), 1024px (2 col), 1440px (3 col)
-- **Font**: System font stack, 18px base
-- **Brand Colors**: Petrolimex Blue (#5FCAEC), Orange (#F89420), Dark (#0d4f66)
+- **Font**: Be Vietnam Pro (Google Fonts) + system font fallback, 18px base
+- **Brand Colors**: Innovative Blue (#1B2469), Energetic Orange (#E85820), Dark (#0d4f66)
 
 ## Quy Trình Phát Triển
 

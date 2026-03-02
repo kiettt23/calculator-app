@@ -76,8 +76,8 @@ function calc() { }
 ```
 
 **Keep file size reasonable**
-- app.js: ~650 LOC ✓
-- styles.css: ~800 LOC ✓
+- app.js: ~638 LOC ✓
+- styles.css: ~765 LOC ✓
 - Nếu vượt 200 LOC (code file) → split module
 
 ### 4. Comments & Documentation
@@ -371,11 +371,11 @@ document.getElementById('cylinderList').addEventListener('change', (e) => {
 
 ### 3. Variables & Colors
 
-**Define color variables**
+**Define color variables** (2026 Rebrand):
 ```css
 :root {
-  --primary: #5FCAEC; /* Petrolimex Blue */
-  --accent: #F89420; /* Petrolimex Orange */
+  --primary: #1B2469; /* Innovative Blue */
+  --accent: #E85820; /* Energetic Orange */
   --dark: #0d4f66; /* Dark */
   --text: #333;
   --bg: #f0f9fe;
