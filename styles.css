@@ -609,9 +609,9 @@ body {
 /* ========== Toast ========== */
 .toast {
   position: fixed;
-  bottom: calc(24px + var(--safe-bottom));
+  top: calc(24px + var(--safe-top));
   left: 50%;
-  transform: translateX(-50%) translateY(80px);
+  transform: translateX(-50%) translateY(-80px);
   background: var(--plx-blue-900);
   color: white;
   padding: 14px 28px;

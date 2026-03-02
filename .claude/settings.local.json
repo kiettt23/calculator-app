@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "WebSearch",
+      "Bash(curl:*)",
+      "WebFetch(domain:www.petrolimex.com.vn)"
+    ]
+  }
+}

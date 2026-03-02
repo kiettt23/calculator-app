@@ -16,7 +16,25 @@ document.addEventListener('DOMContentLoaded', () => {
   initDatePicker();
   renderAllCards();
   updateSummary();
+  initIOSKeyboardDismiss();
+  registerServiceWorker();
 });
+
+/* ========== PWA Service Worker ========== */
+function registerServiceWorker() {
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('./sw.js').catch(() => { /* ignore */ });
+  }
+}
+
+/* ========== iOS Keyboard Dismiss on tap outside ========== */
+function initIOSKeyboardDismiss() {
+  document.addEventListener('touchend', (e) => {
+    if (!e.target.closest('input, select, textarea')) {
+      document.activeElement.blur();
+    }
+  }, { passive: true });
+}
 
 /* ========== Vietnamese Date Picker ========== */
 function initDatePicker() {
@@ -28,15 +46,10 @@ function initDatePicker() {
   for (let d = 1; d <= 31; d++) {
     dayEl.add(new Option(d, d));
   }
-  // Populate months in Vietnamese
-  const monthNames = [
-    'Th\u00e1ng 1','Th\u00e1ng 2','Th\u00e1ng 3','Th\u00e1ng 4',
-    'Th\u00e1ng 5','Th\u00e1ng 6','Th\u00e1ng 7','Th\u00e1ng 8',
-    'Th\u00e1ng 9','Th\u00e1ng 10','Th\u00e1ng 11','Th\u00e1ng 12'
-  ];
-  monthNames.forEach((name, i) => {
-    monthEl.add(new Option(name, i + 1));
-  });
+  // Populate months 1-12
+  for (let m = 1; m <= 12; m++) {
+    monthEl.add(new Option(m, m));
+  }
   // Populate years (current year +/- 2)
   const currentYear = new Date().getFullYear();
   for (let y = currentYear - 2; y <= currentYear + 1; y++) {
