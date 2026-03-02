@@ -1,45 +1,45 @@
 /* ========================================
-   PHIẾU CÂN GAS - Brand Petrolimex 2026
-   Primary: Innovative Blue #5FCAEC (chủ đạo)
-   Accent: Energy Orange #F89420 (điểm nhấn)
-   Target: iPhone 11 (414x896 CSS px)
+   PHIẾU CÂN GAS - Petrolimex 2026 Rebrand
+   Innovative Blue: #1B2469
+   Energetic Orange: #E85820
+   Font: Be Vietnam Pro
+   Target: iPhone 11 (414×896 CSS px)
    ======================================== */
 
-/* ========== CSS Variables - Petrolimex Brand ========== */
+/* ========== CSS Variables ========== */
 :root {
-  /* Brand Primary: Innovative Blue (chủ đạo) */
-  --plx-blue: #5FCAEC;
-  --plx-blue-dark: #2a9ec5;
-  --plx-blue-900: #0d4f66;
-  --plx-blue-700: #1a7a9e;
-  --plx-blue-100: #ddf2fb;
-  --plx-blue-50: #f0f9fe;
+  /* Petrolimex 2026 - Innovative Blue */
+  --plx-navy: #1B2469;
+  --plx-navy-dark: #131b4d;
+  --plx-navy-light: #2a38a8;
+  --plx-navy-100: #d4d9f5;
+  --plx-navy-50: #eef0fb;
 
-  /* Brand Accent: Energy Orange (điểm nhấn) */
-  --plx-orange: #F89420;
-  --plx-orange-dark: #d47a0a;
-  --plx-orange-900: #7c4a10;
-  --plx-orange-100: #fef3e2;
+  /* Petrolimex 2026 - Energetic Orange */
+  --plx-orange: #E85820;
+  --plx-orange-dark: #c44818;
+  --plx-orange-100: #fde8df;
+  --plx-orange-50: #fef4f0;
 
-  /* Brand Accent: Ship Cove */
-  --plx-accent: #688DB7;
+  /* Text */
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --text-muted: #94a3b8;
+
+  /* Layout */
+  --border: #e2e8f0;
+  --border-focus: var(--plx-navy);
+  --bg-page: #f4f5f9;
+  --bg-card: #ffffff;
+  --radius: 10px;
+  --shadow: 0 1px 4px rgba(0,0,0,0.07);
+  --shadow-md: 0 4px 16px rgba(27,36,105,0.10);
 
   /* Semantic */
   --red-700: #b71c1c;
   --red-100: #ffcdd2;
 
-  /* Text */
-  --text-primary: rgba(0, 0, 0, 0.88);
-  --text-secondary: rgba(0, 0, 0, 0.65);
-  --text-muted: rgba(0, 0, 0, 0.45);
-
-  /* Layout */
-  --border: #D9D9D9;
-  --border-focus: var(--plx-blue-dark);
-  --bg-page: var(--plx-blue-50);
-  --bg-card: #ffffff;
-  --radius: 12px;
-  --shadow: 0 2px 8px rgba(0,0,0,0.06);
+  /* iOS safe areas */
   --safe-bottom: env(safe-area-inset-bottom, 0px);
   --safe-top: env(safe-area-inset-top, 0px);
 }
@@ -50,11 +50,11 @@
 html {
   font-size: 18px;
   -webkit-text-size-adjust: 100%;
-  -webkit-tap-highlight-color: rgba(95, 202, 236, 0.2);
+  -webkit-tap-highlight-color: rgba(232, 88, 32, 0.15);
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, 'Noto Sans', sans-serif;
+  font-family: 'Be Vietnam Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Noto Sans', sans-serif;
   background: var(--bg-page);
   color: var(--text-primary);
   line-height: 1.57;
@@ -62,32 +62,31 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* ========== Header - Petrolimex Blue ========== */
+/* ========== Header - Petrolimex 2026 Navy ========== */
 .app-header {
-  background: linear-gradient(135deg, var(--plx-blue-900), var(--plx-blue-700), var(--plx-blue));
+  background: var(--plx-navy);
   color: white;
-  padding: calc(18px + var(--safe-top)) 20px 22px;
+  padding: calc(18px + var(--safe-top)) 20px 20px;
   text-align: center;
   position: relative;
 }
 .app-header::after {
   content: '';
   position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
+  bottom: 0; left: 0; right: 0;
   height: 3px;
-  background: linear-gradient(90deg, var(--plx-blue), var(--plx-orange), var(--plx-blue));
+  background: var(--plx-orange);
 }
 .app-header h1 {
   font-size: 1.33rem;
   font-weight: 700;
-  letter-spacing: 1.5px;
+  letter-spacing: 2px;
 }
 .app-header p {
   font-size: 0.83rem;
-  opacity: 0.92;
+  opacity: 0.75;
   margin-top: 4px;
+  font-weight: 400;
 }
 
 /* ========== Summary Bar (sticky) ========== */
@@ -97,11 +96,11 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+  box-shadow: var(--shadow-md);
   position: sticky;
   top: 0;
   z-index: 100;
-  border-bottom: 3px solid var(--plx-blue);
+  border-bottom: 3px solid var(--plx-navy);
 }
 .summary-total {
   display: flex;
@@ -111,25 +110,25 @@ body {
 .summary-label {
   font-size: 0.83rem;
   color: var(--text-secondary);
-  font-weight: 600;
+  font-weight: 500;
 }
 .summary-value {
   font-size: 1.78rem;
   font-weight: 700;
-  color: var(--plx-blue-900);
+  color: var(--plx-navy);
 }
 .summary-unit {
   font-size: 1rem;
-  color: var(--plx-blue-dark);
-  font-weight: 600;
+  color: var(--text-secondary);
+  font-weight: 500;
 }
 .summary-count {
   font-size: 0.89rem;
-  color: var(--plx-orange-900);
-  background: var(--plx-orange-100);
+  color: white;
+  background: var(--plx-orange);
   padding: 6px 14px;
   border-radius: 24px;
-  font-weight: 600;
+  font-weight: 700;
   min-height: 36px;
   display: flex;
   align-items: center;
@@ -150,6 +149,7 @@ body {
   margin-bottom: 8px;
   font-weight: 600;
 }
+
 /* Vietnamese date picker: 3 dropdowns */
 .date-picker-vn {
   display: flex;
@@ -183,22 +183,23 @@ body {
   background-repeat: no-repeat;
   background-position: right 12px center;
   cursor: pointer;
+  font-family: inherit;
 }
 .date-field select:focus {
   outline: none;
-  border-color: var(--plx-blue-dark);
-  box-shadow: 0 0 0 3px rgba(95, 202, 236, 0.25);
+  border-color: var(--plx-navy);
+  box-shadow: 0 0 0 3px rgba(27, 36, 105, 0.15);
 }
 .formula-hint {
   margin-top: 14px;
   padding: 12px 16px;
-  background: var(--plx-orange-100);
+  background: var(--plx-orange-50);
   border-radius: 8px;
   font-size: 0.94rem;
-  color: var(--plx-orange-900);
+  color: var(--plx-orange-dark);
   text-align: center;
   font-weight: 600;
-  border: 2px solid var(--plx-orange);
+  border: 1.5px solid var(--plx-orange-100);
 }
 
 /* ========== Cylinder Cards ========== */
@@ -206,19 +207,18 @@ body {
   padding: 12px;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 10px;
 }
-
 .cylinder-card {
   background: var(--bg-card);
   border-radius: var(--radius);
-  padding: 18px 20px;
+  padding: 16px 18px;
   box-shadow: var(--shadow);
-  border-left: 5px solid var(--border);
+  border-left: 4px solid var(--border);
   transition: border-color 0.2s ease;
 }
 .cylinder-card.has-data {
-  border-left-color: var(--plx-blue);
+  border-left-color: var(--plx-orange);
 }
 
 /* ========== Card Header ========== */
@@ -229,44 +229,44 @@ body {
   margin-bottom: 14px;
 }
 .card-number {
-  background: var(--plx-blue-100);
-  color: var(--plx-blue-900);
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
+  background: var(--plx-navy);
+  color: white;
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-weight: 600;
-  font-size: 1rem;
+  font-weight: 700;
+  font-size: 0.94rem;
   flex-shrink: 0;
 }
 .card-result {
   font-size: 1.44rem;
   font-weight: 700;
-  color: var(--plx-blue-900);
+  color: var(--plx-navy);
   text-align: right;
   flex: 1;
   padding: 0 12px;
 }
 .card-result .unit {
   font-size: 0.89rem;
-  font-weight: 600;
+  font-weight: 500;
 }
 .card-result.empty {
   color: var(--text-muted);
   font-size: 1rem;
 }
 
-/* ========== Delete Button: 48px touch target ========== */
+/* ========== Delete Button: 44px touch target ========== */
 .card-delete {
   background: none;
-  border: 2px solid transparent;
+  border: 1.5px solid transparent;
   color: var(--text-muted);
   font-size: 1.33rem;
   cursor: pointer;
-  width: 48px;
-  height: 48px;
+  width: 44px;
+  height: 44px;
   border-radius: 8px;
   display: flex;
   align-items: center;
@@ -288,7 +288,6 @@ body {
   margin-bottom: 10px;
 }
 .input-row:last-child { margin-bottom: 0; }
-
 .input-group { flex: 1; }
 .input-group label {
   display: block;
@@ -310,15 +309,16 @@ body {
   min-height: 52px;
   -webkit-appearance: none;
   appearance: none;
+  font-family: inherit;
 }
 .input-group input:focus {
   outline: none;
-  border-color: var(--plx-blue-dark);
-  background: var(--plx-blue-50);
-  box-shadow: 0 0 0 3px rgba(95, 202, 236, 0.25);
+  border-color: var(--plx-navy);
+  background: var(--plx-navy-50);
+  box-shadow: 0 0 0 3px rgba(27, 36, 105, 0.12);
 }
 .input-group input::placeholder {
-  color: #94a3b8;
+  color: #cbd5e1;
   font-size: 0.89rem;
 }
 
@@ -348,37 +348,44 @@ body {
   cursor: pointer;
   text-align: center;
   transition: opacity 0.15s ease, transform 0.1s ease;
-  min-height: 56px;
+  min-height: 54px;
   display: flex;
   align-items: center;
   justify-content: center;
   -webkit-tap-highlight-color: transparent;
+  font-family: inherit;
 }
 .btn:active {
   opacity: 0.85;
   transform: scale(0.98);
 }
+/* Primary: Orange - In phiếu là hành động chính */
 .btn-primary {
-  background: linear-gradient(135deg, var(--plx-blue-900), var(--plx-blue-dark));
+  background: var(--plx-orange);
   color: white;
-  font-size: 1.17rem;
-  min-height: 60px;
-  box-shadow: 0 4px 14px rgba(42, 158, 197, 0.35);
+  font-size: 1.11rem;
+  min-height: 58px;
+  font-weight: 700;
+  box-shadow: 0 4px 14px rgba(232, 88, 32, 0.28);
 }
+/* Secondary: Navy tint */
 .btn-secondary {
-  background: var(--plx-orange-100);
-  color: var(--plx-orange-900);
+  background: var(--plx-navy-50);
+  color: var(--plx-navy);
+  border: 1.5px solid var(--plx-navy-100);
 }
+/* Danger: Red border on white */
 .btn-danger {
   background: #fff;
   color: var(--red-700);
-  border: 2px solid var(--red-100);
+  border: 1.5px solid var(--red-100);
 }
+/* Add: Dashed navy border */
 .btn-add {
   background: var(--bg-card);
-  color: var(--plx-blue-dark);
-  border: 2px dashed var(--plx-blue);
-  min-height: 52px;
+  color: var(--plx-navy);
+  border: 2px dashed var(--plx-navy-100);
+  min-height: 50px;
 }
 .btn-row {
   display: flex;
@@ -395,13 +402,13 @@ body {
   padding: 8px 12px;
   font-size: 0.83rem;
   color: var(--text-muted);
-  font-weight: 600;
+  font-weight: 500;
 }
 .auto-save-dot {
-  width: 8px;
-  height: 8px;
+  width: 7px;
+  height: 7px;
   border-radius: 50%;
-  background: #4caf50;
+  background: #22c55e;
   flex-shrink: 0;
 }
 
@@ -427,7 +434,7 @@ body {
   transition: background 0.3s ease;
 }
 .history-modal.show .history-backdrop {
-  background: rgba(0, 0, 0, 0.4);
+  background: rgba(0, 0, 0, 0.45);
 }
 .history-panel {
   position: relative;
@@ -435,7 +442,7 @@ body {
   max-width: 600px;
   max-height: 75vh;
   background: var(--bg-card);
-  border-radius: 20px 20px 0 0;
+  border-radius: 16px 16px 0 0;
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -450,21 +457,21 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20px 20px 14px;
-  border-bottom: 2px solid var(--plx-blue-100);
+  padding: 18px 20px 14px;
+  border-bottom: 2px solid var(--plx-navy-50);
   flex-shrink: 0;
 }
 .history-header h2 {
   font-size: 1.11rem;
-  font-weight: 600;
-  color: var(--plx-blue-900);
+  font-weight: 700;
+  color: var(--plx-navy);
 }
 .history-close {
   background: none;
   border: none;
   font-size: 1.5rem;
-  width: 48px;
-  height: 48px;
+  width: 44px;
+  height: 44px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -472,9 +479,7 @@ body {
   color: var(--text-muted);
   border-radius: 8px;
 }
-.history-close:active {
-  background: var(--plx-blue-50);
-}
+.history-close:active { background: var(--plx-navy-50); }
 .history-list {
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
@@ -491,23 +496,23 @@ body {
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 16px;
-  background: var(--plx-blue-50);
-  border-radius: 12px;
+  padding: 14px 16px;
+  background: var(--plx-navy-50);
+  border-radius: 10px;
   margin-bottom: 10px;
   cursor: pointer;
-  border: 2px solid transparent;
+  border: 1.5px solid transparent;
   transition: border-color 0.2s ease;
-  min-height: 56px;
+  min-height: 54px;
 }
 .history-item:active {
-  border-color: var(--plx-blue);
-  background: var(--plx-blue-100);
+  border-color: var(--plx-navy);
+  background: var(--plx-navy-100);
 }
 .history-date {
   font-size: 1rem;
-  font-weight: 600;
-  color: var(--plx-blue-900);
+  font-weight: 700;
+  color: var(--plx-navy);
   white-space: nowrap;
   display: flex;
   flex-direction: column;
@@ -515,7 +520,7 @@ body {
 }
 .history-time {
   font-size: 0.78rem;
-  font-weight: 600;
+  font-weight: 500;
   color: var(--text-muted);
 }
 .history-info {
@@ -526,17 +531,17 @@ body {
 }
 .history-gas {
   font-size: 0.94rem;
-  font-weight: 600;
-  color: var(--plx-blue-dark);
+  font-weight: 700;
+  color: var(--plx-orange);
 }
 .history-count {
   font-size: 0.83rem;
   color: var(--text-muted);
-  font-weight: 600;
+  font-weight: 500;
 }
 .history-delete {
   background: none;
-  border: 2px solid transparent;
+  border: 1.5px solid transparent;
   color: var(--text-muted);
   font-size: 1.2rem;
   width: 44px;
@@ -559,14 +564,14 @@ body {
   overflow: hidden;
   transition: max-height 0.3s ease;
   background: var(--bg-card);
-  border-radius: 0 0 12px 12px;
+  border-radius: 0 0 10px 10px;
   margin-top: -10px;
   margin-bottom: 10px;
 }
 .history-detail.show {
   max-height: 600px;
   overflow-y: auto;
-  border: 2px solid var(--plx-blue-100);
+  border: 1.5px solid var(--plx-navy-100);
   border-top: none;
   padding: 12px;
 }
@@ -579,21 +584,19 @@ body {
 .history-table td {
   padding: 6px 8px;
   text-align: center;
-  border-bottom: 1px solid var(--plx-blue-100);
+  border-bottom: 1px solid var(--plx-navy-50);
 }
 .history-table th {
   font-size: 0.78rem;
   color: var(--text-muted);
   font-weight: 600;
 }
-.history-table td {
-  color: var(--text-primary);
-}
+.history-table td { color: var(--text-primary); }
 .btn-history-load {
   width: 100%;
   margin-top: 12px;
   padding: 14px;
-  background: linear-gradient(135deg, var(--plx-blue-900), var(--plx-blue-dark));
+  background: var(--plx-navy);
   color: white;
   border: none;
   border-radius: 8px;
@@ -601,10 +604,9 @@ body {
   font-weight: 600;
   cursor: pointer;
   min-height: 48px;
+  font-family: inherit;
 }
-.btn-history-load:active {
-  opacity: 0.85;
-}
+.btn-history-load:active { opacity: 0.85; }
 
 /* ========== Toast ========== */
 .toast {
@@ -612,9 +614,9 @@ body {
   top: calc(24px + var(--safe-top));
   left: 50%;
   transform: translateX(-50%) translateY(-80px);
-  background: var(--plx-blue-900);
+  background: var(--plx-navy);
   color: white;
-  padding: 14px 28px;
+  padding: 12px 24px;
   border-radius: 30px;
   font-size: 0.94rem;
   font-weight: 600;
@@ -622,7 +624,8 @@ body {
   transition: all 0.3s ease;
   z-index: 1000;
   pointer-events: none;
-  box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+  box-shadow: 0 4px 16px rgba(27,36,105,0.25);
+  border-left: 3px solid var(--plx-orange);
 }
 .toast.show {
   transform: translateX(-50%) translateY(0);
@@ -633,31 +636,21 @@ body {
 .print-view { display: none; }
 
 /* ========== Desktop / Tablet Responsive ========== */
-
-/* Tablet: 768px+ */
 @media (min-width: 768px) {
-  body {
-    background: linear-gradient(135deg, var(--plx-blue-100) 0%, #e8f0fe 50%, var(--plx-blue-50) 100%);
-  }
+  body { background: #ecedf5; }
   .app-header {
     max-width: 600px;
     margin: 24px auto 0;
-    border-radius: 16px 16px 0 0;
+    border-radius: 12px 12px 0 0;
     padding-top: 22px;
   }
-  .summary-bar {
-    max-width: 600px;
-    margin: 0 auto;
-  }
-  .form-meta {
-    max-width: 576px;
-    margin: 16px auto;
-  }
+  .summary-bar { max-width: 600px; margin: 0 auto; }
+  .form-meta { max-width: 576px; margin: 16px auto; }
   .cylinder-list {
     max-width: 600px;
     margin: 0 auto;
     padding: 16px;
-    gap: 14px;
+    gap: 12px;
   }
   .actions {
     max-width: 576px;
@@ -668,41 +661,32 @@ body {
 
 /* Desktop: history modal centered */
 @media (min-width: 768px) {
-  .history-modal {
-    align-items: center;
-  }
+  .history-modal { align-items: center; }
   .history-panel {
-    border-radius: 20px;
+    border-radius: 16px;
     max-height: 70vh;
     margin: 0 20px;
   }
 }
 
-/* Desktop: 1024px+ — 2 cột cho danh sách bình */
+/* Desktop: 1024px+ — 2 cột */
 @media (min-width: 1024px) {
   .app-header {
     max-width: 900px;
-    border-radius: 20px 20px 0 0;
+    border-radius: 14px 14px 0 0;
     margin-top: 32px;
     padding: 26px 24px;
   }
   .app-header h1 { font-size: 1.5rem; }
-  .summary-bar {
-    max-width: 900px;
-    padding: 16px 28px;
-  }
+  .summary-bar { max-width: 900px; padding: 16px 28px; }
   .summary-value { font-size: 2rem; }
-  .form-meta {
-    max-width: 876px;
-    margin: 20px auto;
-    padding: 20px 24px;
-  }
+  .form-meta { max-width: 876px; margin: 20px auto; padding: 20px 24px; }
   .date-picker-vn { max-width: 400px; }
   .cylinder-list {
     max-width: 900px;
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 14px;
+    gap: 12px;
     padding: 20px;
   }
   .actions {
@@ -715,12 +699,10 @@ body {
   .actions .btn-row { flex: 2; min-width: 360px; }
 }
 
-/* Wide Desktop: 1440px+ */
+/* Wide Desktop: 1440px+ — 3 cột */
 @media (min-width: 1440px) {
-  .app-header,
-  .summary-bar { max-width: 1080px; }
-  .form-meta,
-  .actions { max-width: 1056px; }
+  .app-header, .summary-bar { max-width: 1080px; }
+  .form-meta, .actions { max-width: 1056px; }
   .cylinder-list {
     max-width: 1080px;
     grid-template-columns: 1fr 1fr 1fr;
@@ -754,24 +736,13 @@ body {
   .auto-save-hint,
   .history-modal { display: none !important; }
 
-  .print-view {
-    display: block !important;
-    padding: 15px 20px;
-  }
+  .print-view { display: block !important; padding: 15px 20px; }
   .print-header { text-align: center; margin-bottom: 14px; }
-  .print-header h2 {
-    font-size: 13px;
-    text-transform: uppercase;
-    margin-bottom: 2px;
-  }
+  .print-header h2 { font-size: 13px; text-transform: uppercase; margin-bottom: 2px; }
   .print-header h3 { font-size: 11px; margin-bottom: 6px; }
   .print-header h1 { font-size: 16px; margin: 10px 0 6px; }
   .print-header p { font-size: 10px; }
-  .print-info {
-    font-size: 10px;
-    margin-bottom: 12px;
-    line-height: 1.7;
-  }
+  .print-info { font-size: 10px; margin-bottom: 12px; line-height: 1.7; }
   .print-table {
     width: 100%;
     border-collapse: collapse;
@@ -779,22 +750,10 @@ body {
     margin-bottom: 10px;
   }
   .print-table th,
-  .print-table td {
-    border: 1px solid #333;
-    padding: 3px 5px;
-    text-align: center;
-  }
-  .print-table th {
-    background: #eee;
-    font-weight: 600;
-    font-size: 9px;
-  }
+  .print-table td { border: 1px solid #333; padding: 3px 5px; text-align: center; }
+  .print-table th { background: #eee; font-weight: 600; font-size: 9px; }
   .print-table .separator { border-left: 3px solid #333; }
-  .print-total {
-    font-size: 13px;
-    font-weight: 600;
-    margin: 10px 0 24px;
-  }
+  .print-total { font-size: 13px; font-weight: 600; margin: 10px 0 24px; }
   .print-signatures {
     display: flex;
     justify-content: space-between;

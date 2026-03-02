@@ -1,4 +1,4 @@
-const CACHE_NAME = 'phieu-can-gas-v1';
+const CACHE_NAME = 'phieu-can-gas-v2';
 const FILES_TO_CACHE = [
   './',
   './index.html',
