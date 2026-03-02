@@ -9,7 +9,12 @@ export function archiveCurrentForm() {
   const hasData = state.cylinders.some(c => c.seri || c.total || c.tare);
   if (!hasData) return;
 
+  /* Dedup: skip if identical to latest entry */
   const history = getHistory();
+  const snapshot = JSON.stringify(state.cylinders);
+  if (history.length > 0 && history[0].date === state.date &&
+      JSON.stringify(history[0].cylinders) === snapshot) return;
+
   let totalGas = 0;
   let filledCount = 0;
   state.cylinders.forEach(c => {
@@ -20,7 +25,7 @@ export function archiveCurrentForm() {
   history.unshift({
     id: Date.now(),
     date: state.date,
-    cylinders: JSON.parse(JSON.stringify(state.cylinders)),
+    cylinders: JSON.parse(snapshot),
     totalGas: Math.round(totalGas * 10) / 10,
     filledCount,
     savedAt: new Date().toISOString()
@@ -28,9 +33,12 @@ export function archiveCurrentForm() {
 
   if (history.length > MAX_HISTORY) history.length = MAX_HISTORY;
   saveHistory(history);
+  return true;
 }
 
 export function showHistory() {
+  const saved = archiveCurrentForm();
+  if (saved) showToast('Đã lưu phiếu hiện tại vào lịch sử');
   const history = getHistory();
   const modal = document.getElementById('historyModal');
   const list = document.getElementById('historyList');
