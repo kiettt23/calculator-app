@@ -1,4 +1,4 @@
-const CACHE_NAME = 'so-doanh-thu';
+const CACHE_NAME = 'so-doanh-thu-v2';
 const FONTS_CACHE = 'so-doanh-thu-fonts';
 
 const FILES_TO_CACHE = [
@@ -33,7 +33,12 @@ self.addEventListener('install', (e) => {
   self.skipWaiting();
 });
 
-self.addEventListener('activate', () => {
+self.addEventListener('activate', (e) => {
+  e.waitUntil(
+    caches.keys().then(names =>
+      Promise.all(names.filter(n => n !== CACHE_NAME && n !== FONTS_CACHE).map(n => caches.delete(n)))
+    )
+  );
   self.clients.claim();
 });
 
