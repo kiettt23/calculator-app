@@ -1,0 +1,59 @@
+/* ========== Tablet: 768px+ ========== */
+@media (min-width: 768px) {
+  body { background: #f0f4f8; }
+
+  .app-header {
+    max-width: 600px;
+    margin: 24px auto 0;
+    border-radius: 12px 12px 0 0;
+  }
+  .summary-bar {
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  .entry-form {
+    max-width: 576px;
+    margin: 16px auto;
+  }
+  .month-filter {
+    max-width: 576px;
+    margin: 0 auto;
+  }
+  .entry-list {
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  .actions {
+    max-width: 576px;
+    margin: 0 auto;
+  }
+}
+
+/* ========== Desktop: 1024px+ ========== */
+@media (min-width: 1024px) {
+  .app-header {
+    max-width: 720px;
+    margin-top: 32px;
+  }
+  .summary-bar { max-width: 720px; }
+  .entry-form {
+    max-width: 696px;
+    padding: 20px 24px;
+  }
+  .form-row-split { gap: 16px; }
+  .month-filter { max-width: 696px; }
+  .entry-list { max-width: 720px; }
+  .actions {
+    max-width: 696px;
+    flex-direction: row;
+  }
+  .actions .btn-row { flex: 1; }
+}
+
+/* ========== Reduced Motion ========== */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}

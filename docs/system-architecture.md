@@ -225,4 +225,167 @@ window.onFieldInput = onFieldInput;
 
 ---
 
-**Phiên Bản**: 1.1 | **Cập Nhật**: 02/03/2026
+## Sổ Doanh Thu (Revenue Ledger) Architecture
+
+### Tổng Quan Kiến Trúc
+
+Revenue Ledger là **independent PWA** tách biệt từ Gas app — không share code, state, hay localStorage.
+
+```
+┌─────────────────────────────────────────────┐
+│     Presentation Layer (HTML/CSS)           │
+│  index.html + css/* (5 modules)             │
+└──────────────────┬──────────────────────────┘
+                   │
+┌──────────────────▼──────────────────────────┐
+│     Business Logic Layer (JS Modules)       │
+│  js/main.js → handlers, export, print       │
+│           → render → state → storage        │
+└──────────────────┬──────────────────────────┘
+                   │
+┌──────────────────▼──────────────────────────┐
+│     Data Layer (localStorage)               │
+│  Daily entries persistence                  │
+└─────────────────────────────────────────────┘
+                   │
+┌──────────────────▼──────────────────────────┐
+│     Offline Layer (Service Worker)          │
+│  Network-first strategy, xlsx lib cached    │
+└─────────────────────────────────────────────┘
+```
+
+### Module Architecture (js/)
+
+```
+main.js (entry point)
+   ├── handlers.js     — events, date picker, month navigation
+   │   ├── state.js    — app state, loadState, saveState
+   │   │   ├── storage.js  — getEntries, saveEntries, CRUD
+   │   │   └── constants.js
+   │   ├── render.js   — DOM rendering, monthly table
+   │   │   ├── state.js, utils.js
+   │   ├── export.js   — Excel export via SheetJS
+   │   │   ├── state.js, utils.js
+   │   ├── print.js    — Print view
+   │   │   └── state.js, utils.js
+   │   └── utils.js
+```
+
+### State Container
+
+```javascript
+// js/state.js — exported const, mutate properties
+const state = {
+  entries: [
+    { date: "2026-03-03", ck: 1500000, tm: 500000, note: "Bán thuốc" },
+    { date: "2026-03-02", ck: 1200000, tm: 300000, note: "Bán xăng" },
+    // ... more entries
+  ]
+}
+```
+
+### Event Flow Chi Tiết
+
+#### Initialization
+```
+DOMContentLoaded [main.js]
+   ├── loadState()            — restore entries từ localStorage
+   ├── renderDailyEntries()   — render entries hôm nay
+   ├── renderMonthlyTable()   — render summary table tháng
+   ├── initDatePicker()       — setup date controls
+   ├── initMonthTabs()        — setup month navigation
+   └── registerServiceWorker()
+```
+
+#### Add Entry
+```
+User fills CK/TM → onAddEntry() [handlers.js]
+   ├── state.entries.push({date, ck, tm, note})
+   ├── saveState() debounce 800ms [state.js]
+   │   └── saveEntries() [storage.js]
+   ├── renderDailyEntries() [render.js]
+   └── updateMonthlyTotals() [render.js]
+```
+
+#### Monthly Summary View
+```
+User clicks month tab → onSelectMonth(year, month) [handlers.js]
+   ├── Filter state.entries for that month
+   ├── renderMonthlyTable() [render.js]
+   └── Calculate total CK + TM
+```
+
+#### Excel Export
+```
+onclick="exportToExcel(2026, 3)" → window.exportToExcel()
+   ├── Filter entries for that month [state.js]
+   ├── Build SheetJS workbook
+   ├── exportToExcel() [export.js]
+   └── Download .xlsx file
+```
+
+#### Print
+```
+onclick="printForm()" → window.printForm()
+   ├── generatePrintView() [print.js]
+   ├── Render A4 layout tháng hiện tại
+   └── window.print() browser dialog
+```
+
+### Data Layer - localStorage
+
+**Single key:**
+
+```javascript
+// so-doanh-thu-entries — array daily entries
+localStorage['so-doanh-thu-entries'] = [
+  { date: "2026-03-03", ck: 1500000, tm: 500000, note: "Bán thuốc" },
+  { date: "2026-03-02", ck: 1200000, tm: 300000, note: "Bán xăng" }
+]
+```
+
+**Không có quota handling** (revenue entries nhỏ, unlikely to exceed limit)
+
+### CSS Architecture (css/)
+
+| File | Concern | LOC |
+|------|---------|-----|
+| `variables.css` | Teal design tokens (:root) | 37 |
+| `base.css` | Reset, body, header | 83 |
+| `components.css` | Cards, inputs, buttons, modal | 341 |
+| `responsive.css` | Breakpoints 768/1024px | 59 |
+| `print.css` | @media print A4 layout | 75 |
+
+Load order: variables → base → components → responsive → print
+
+### Service Worker (sw.js)
+
+**Strategy: Network-first**
+
+```
+Request → Try fetch from network
+             ├── OK → Return + update cache
+             └── Fail → Return cached (if exist)
+```
+
+**Cache version:** `so-doanh-thu`
+
+**Cached assets:** index.html, manifest.json, assets/*, js/* (9 files), css/* (5 files), lib/xlsx.full.min.js
+
+### Separation from Gas App
+
+| Aspek | Gas App | Revenue App |
+|-------|---------|-------------|
+| Root Path | `/` | `/revenue/` |
+| Storage Key | `phieu-can-gas-*` | `so-doanh-thu-*` |
+| Service Worker Cache | `phieu-can-gas-v*` | `so-doanh-thu` |
+| State Shape | cylinders[] | entries[] |
+| Data Model | Per-sheet (date + rows) | Per-entry (date + ck/tm) |
+| Manifest | `/manifest.json` | `/revenue/manifest.json` |
+| Icons | `/assets/` | `/revenue/assets/` |
+
+**Result:** Hoàn toàn độc lập — có thể deploy/update riêng
+
+---
+
+**Phiên Bản**: 1.3 | **Cập Nhật**: 03/03/2026

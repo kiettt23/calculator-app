@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="theme-color" content="#0891B2">
+  <link rel="manifest" href="manifest.json">
+  <link rel="apple-touch-icon" href="assets/icon-180.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
+  <script src="https://unpkg.com/lucide@0.469.0/dist/umd/lucide.min.js"></script>
+  <title>Sổ Doanh Thu</title>
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/responsive.css">
+  <link rel="stylesheet" href="css/print.css">
+</head>
+
+<body>
+  <div class="offline-bar" id="offlineBar">Không có kết nối mạng</div>
+
+  <header class="app-header">
+    <img src="assets/icon-180.png" alt="Sổ Doanh Thu" class="header-logo">
+    <div class="header-text">
+      <h1>SỔ DOANH THU</h1>
+      <p>Ghi chép hằng ngày</p>
+    </div>
+  </header>
+
+  <!-- Entry Form (always visible, first thing user sees) -->
+  <form class="entry-form no-print" id="entryForm" autocomplete="off">
+    <div class="form-section">
+      <label class="form-section-label"><i data-lucide="calendar" class="label-icon"></i> Ngày</label>
+      <div class="date-picker-vn">
+        <div class="date-field">
+          <span class="date-label">Ngày</span>
+          <select id="entryDay" aria-label="Ngày"></select>
+        </div>
+        <div class="date-field">
+          <span class="date-label">Tháng</span>
+          <select id="entryMonth" aria-label="Tháng"></select>
+        </div>
+        <div class="date-field">
+          <span class="date-label">Năm</span>
+          <select id="entryYear" aria-label="Năm"></select>
+        </div>
+      </div>
+      <input type="hidden" id="entryDate">
+    </div>
+    <div class="form-section">
+      <div class="form-row-split">
+        <div class="input-group">
+          <label for="entryCK"><i data-lucide="smartphone" class="label-icon"></i> Chuyển khoản (CK)</label>
+          <div class="input-wrap">
+            <input type="text" id="entryCK" inputmode="decimal" placeholder="0" class="currency-input"
+              autocomplete="off">
+            <span class="input-suffix">VND</span>
+          </div>
+        </div>
+        <div class="input-group">
+          <label for="entryTM"><i data-lucide="banknote" class="label-icon"></i> Tiền mặt (TM)</label>
+          <div class="input-wrap">
+            <input type="text" id="entryTM" inputmode="decimal" placeholder="0" class="currency-input"
+              autocomplete="off">
+            <span class="input-suffix">VND</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="form-section">
+      <label for="entryNote"><i data-lucide="message-square-text" class="label-icon"></i> Ghi chú</label>
+      <input type="text" id="entryNote" placeholder="Không bắt buộc" class="note-input" autocomplete="off">
+    </div>
+    <div class="form-total-row">
+      <span class="form-total-label">Tổng ngày:</span>
+      <span class="form-total-value" id="formTotal">0</span>
+    </div>
+    <button type="submit" class="btn btn-save" id="btnSave">
+      <i data-lucide="save" class="btn-icon"></i> Lưu
+    </button>
+  </form>
+
+  <!-- Summary Bar (sticky when scrolled) -->
+  <div class="summary-bar" id="summaryBar" role="status" aria-live="polite">
+    <div class="summary-main">
+      <span class="summary-label">Tổng tháng</span>
+      <span class="summary-value" id="summaryTotal">0</span>
+    </div>
+    <div class="summary-details">
+      <span class="detail-chip chip-ck">CK <b id="summaryCK">0</b></span>
+      <span class="detail-sep">·</span>
+      <span class="detail-chip chip-tm">TM <b id="summaryTM">0</b></span>
+    </div>
+  </div>
+
+  <!-- Month Filter -->
+  <div class="month-filter no-print" id="monthFilter">
+    <button class="btn-month-nav" id="btnPrevMonth" type="button" aria-label="Tháng trước">
+      <i data-lucide="chevron-left"></i>
+    </button>
+    <span class="month-label" id="monthLabel">Tháng 3/2026</span>
+    <button class="btn-month-nav" id="btnNextMonth" type="button" aria-label="Tháng sau">
+      <i data-lucide="chevron-right"></i>
+    </button>
+  </div>
+
+  <!-- Entry List -->
+  <div class="entry-list" id="entryList" role="list"></div>
+
+  <!-- Action Buttons -->
+  <div class="actions no-print">
+    <div class="btn-row">
+      <button class="btn btn-print" onclick="printMonth()" type="button">
+        <i data-lucide="printer" class="btn-icon"></i> In phiếu
+      </button>
+      <button class="btn btn-export" onclick="exportExcel()" type="button">
+        <i data-lucide="file-spreadsheet" class="btn-icon"></i> Xuất Excel
+      </button>
+    </div>
+    <button class="btn btn-dev" id="btnInstall" onclick="installApp()" type="button" style="display:none">
+      <i data-lucide="download" class="btn-icon"></i> Cài ứng dụng
+    </button>
+  </div>
+
+  <!-- Print View (hidden on screen) -->
+  <div class="print-view" id="printView"></div>
+
+  <!-- Toast -->
+  <div class="toast" id="toast" role="alert" aria-live="assertive"></div>
+
+  <!-- Confirm Modal -->
+  <div class="confirm-overlay" id="confirmOverlay" role="dialog" aria-modal="true" aria-labelledby="confirmMessage">
+    <div class="confirm-box">
+      <p class="confirm-message" id="confirmMessage"></p>
+      <div class="confirm-actions">
+        <button class="btn-confirm-cancel" id="confirmCancel" type="button">Hủy</button>
+        <button class="btn-confirm-ok" id="confirmOk" type="button">Đồng ý</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="lib/xlsx.full.min.js"></script>
+  <script type="module" src="js/main.js"></script>
+</body>
+
+</html>

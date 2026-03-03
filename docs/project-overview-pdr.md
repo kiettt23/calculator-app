@@ -2,43 +2,88 @@
 
 ## Tổng Quan
 
-**Tên**: Phiếu Cân Gas Petrolimex
-**Mô Tả**: PWA mobile-first để số hóa phiếu cân gas LPG tại trạm nạp Gas Petrolimex.
-**Loại**: Web Progressive App (PWA)
-**Target**: Nhân viên trạm nạp gas Petrolimex
-**Phiên Bản**: 1.0.0
-**Ngày Tạo**: 02/03/2026
+**Repository**: Petrolimex Calculator
+**Mô Tả**: Bộ PWA cho Petrolimex gồm 2 ứng dụng độc lập: Phiếu Cân Gas + Sổ Doanh Thu
+**Loại**: Web Progressive Apps (Multi-app PWA repository)
+**Target**: Nhân viên trạm nạp gas Petrolimex (Gas app) + Quản lý doanh thu (Revenue app)
+**Phiên Bản**: 1.3.0
+**Ngày Tạo**: 02/03/2026 | **Cập Nhật**: 03/03/2026
 
 ## Mục Tiêu
 
-1. **Số hóa phiếu cân gas** - Thay thế phiếu giấy bằng app di động
+1. **Số hóa quy trình kinh doanh** - Thay thế phiếu giấy bằng app di động
 2. **Offline-first** - Hoạt động offline hoàn toàn, không phụ thuộc internet
 3. **Tối ưu mobile** - Design mobile-first, responsive desktop
 4. **Dễ sử dụng** - Giao diện đơn giản, nhanh chóng
-5. **Lưu trữ dữ liệu** - Auto-save, lịch sử phiếu, nhớ trọng lượng vỏ
+5. **Lưu trữ dữ liệu** - Auto-save, lịch sử, nhớ dữ liệu trước đó
+6. **Multi-app** - Hỗ trợ nhiều công cụ trong cùng 1 ecosystem
 
 ## Đặc Tính Chính
+
+### Gas App (Phiếu Cân Gas)
 
 | Tính Năng | Mô Tả | Trạng Thái |
 |-----------|-------|-----------|
 | Tính gas tồn | Cân toàn bộ - Trọng lượng vỏ | ✓ Hoàn tất |
 | 40 dòng bình | Mặc định 40 bình, thêm/xóa động | ✓ Hoàn tất |
-| Nhớ tare | Auto-fill trọng lượng vỏ theo seri | ✓ Hoàn tát |
+| Nhớ tare | Auto-fill trọng lượng vỏ theo seri | ✓ Hoàn tất |
 | Ngày Việt Nam | 3 dropdown Ngày/Tháng/Năm | ✓ Hoàn tất |
 | Sticky summary | Bar hiển thị tổng gas + số bình | ✓ Hoàn tất |
 | Auto-save | Debounce 800ms | ✓ Hoàn tất |
 | Lịch sử | Xem/load/xóa phiếu (max 50) | ✓ Hoàn tất |
 | In phiếu | Layout 2 cột, 5 chữ ký | ✓ Hoàn tất |
-| Xuất Excel | CSV UTF-8 BOM | ✓ Hoàn tất |
+| Xuất CSV | CSV UTF-8 BOM | ✓ Hoàn tất |
 | PWA offline | Service worker cache-first | ✓ Hoàn tất |
 | Toast notify | Thông báo hành động | ✓ Hoàn tất |
 | Dismiss iOS | Tap ngoài để đóng bàn phím | ✓ Hoàn tất |
 | Cảnh báo seri | Nhất cảnh báo trùng số seri | ✓ Hoàn tất |
 | Thập phân | Hỗ trợ dấu phẩy, chấm | ✓ Hoàn tất |
 
+### Revenue App (Sổ Doanh Thu)
+
+| Tính Năng | Mô Tả | Trạng Thái |
+|-----------|-------|-----------|
+| Nhập CK/TM | Nhập doanh thu CK (Card) + TM (Tiền mặt) hàng ngày | ✓ Hoàn tất |
+| Ghi chú | Thêm ghi chú cho mỗi entry | ✓ Hoàn tất |
+| Tổng tháng | Tính tổng CK/TM theo tháng | ✓ Hoàn tast |
+| Auto-save | Debounce 800ms | ✓ Hoàn tất |
+| In sổ | Layout A4 với summary tháng | ✓ Hoàn tất |
+| Xuất Excel | .xlsx via SheetJS | ✓ Hoàn tast |
+| PWA offline | Network-first SW, xlsx cached | ✓ Hoàn tast |
+| Teal design | Be Vietnam Pro font, WCAG AAA | ✓ Hoàn tast |
+| Toast notify | Thông báo hành động | ✓ Hoàn tất |
+| Responsive | Mobile-first, 768px/1024px breakpoints | ✓ Hoàn tast |
+
+## Kiến Trúc Repository
+
+```
+petrolimex-calculator/
+├── / (root)              # Gas App (Phiếu Cân Gas)
+│   ├── index.html
+│   ├── js/               # 9 modules ES
+│   ├── css/              # 8 stylesheets
+│   ├── sw.js             # Service worker
+│   └── docs/
+├── /revenue/             # Revenue App (Sổ Doanh Thu)
+│   ├── index.html
+│   ├── js/               # 9 modules ES
+│   ├── css/              # 5 stylesheets
+│   ├── sw.js             # Service worker
+│   ├── manifest.json
+│   └── lib/xlsx.full.min.js
+└── /docs/                # Shared documentation
+```
+
+**Hai app hoàn toàn độc lập:**
+- Khác domain path (`/` vs `/revenue/`)
+- Khác localStorage keys
+- Khác Service Worker caches
+- Có thể deploy riêng
+- Không share code/state
+
 ## PDR - Yêu Cầu Phát Triển
 
-### Yêu Cầu Chức Năng (FR)
+### Gas App - Yêu Cầu Chức Năng (FR)
 
 #### FR-001: Tính Toán Gas
 - Cấp độ ưu tiên: **P1 (Critical)**
@@ -86,16 +131,43 @@
 - Hoạt động offline
 - Add to home screen
 
+### Revenue App - Yêu Cầu Chức Năng (FR)
+
+#### FR-R01: Nhập Doanh Thu
+- Cấp độ ưu tiên: **P1 (Critical)**
+- Nhập CK (Card), TM (Tiền mặt) hàng ngày
+- Ghi chú tự do (optional)
+- Lưu ngay khi nhập
+
+#### FR-R02: Xem Tổng Tháng
+- Cấp độ ưu tiên: **P1 (Critical)**
+- Tổng CK + TM theo tháng
+- Thay đổi tháng dễ dàng (tabs)
+- Hiển thị ngày hôm nay tự động
+
+#### FR-R03: In & Xuất
+- Cấp độ ưu tiên: **P2 (High)**
+- In: Layout A4 với summary tháng
+- Xuất Excel .xlsx via SheetJS
+- Tên file: "So-Doanh-Thu-MM-YYYY.xlsx"
+
+#### FR-R04: PWA & Offline
+- Cấp độ ưu tiên: **P1 (Critical)**
+- Service worker network-first
+- Hoạt động offline hoàn toàn
+- SheetJS vendored cho offline export
+
 ### Yêu Cầu Phi Chức Năng (NFR)
 
 #### NFR-001: Hiệu Suất
 - Thời gian tải trang < 500ms
 - Auto-save không chặn UI
-- Render card < 16ms (60fps)
+- Render không lag (60fps)
 
 #### NFR-002: Lưu Trữ
 - Dùng localStorage (giới hạn ~5MB)
-- Tự động xóa phiếu cũ nếu quota đầy
+- Gas app: tự động xóa phiếu cũ nếu quota đầy
+- Revenue app: entries nhỏ, unlikely to overflow
 - Thông báo lỗi lưu trữ
 
 #### NFR-003: Khả Dụng
@@ -107,11 +179,19 @@
 - Không gửi dữ liệu mạng
 - Không cookie tracking
 - Dữ liệu chỉ trong localStorage
+- Revenue app: dữ liệu tài chính local-only
 
-#### NFR-004: UX
+#### NFR-005: UX
 - Auto-save không cần bấm
 - Toast thông báo rõ
 - Dismiss bàn phím iOS tự động
+- Be Vietnam Pro font cho typography
+
+#### NFR-006: Design
+- Gas app: Blue palette (#1B2469, #E85820)
+- Revenue app: Teal palette (#0891B2)
+- WCAG AAA contrast (7:1)
+- Consistent component library
 
 ## Tiêu Chí Chấp Nhận
 
@@ -149,22 +229,28 @@ User Interface (HTML/CSS)
 ## Phạm Vi & Giới Hạn
 
 ### Trong Phạm Vi
-- Số hóa phiếu cân gas
-- Lưu, in, xuất phiếu
-- Offline-first PWA
+- Gas app: Số hóa phiếu cân gas
+- Revenue app: Quản lý doanh thu hàng ngày
+- Lưu, in, xuất cho cả 2 app
+- Offline-first PWA (cả 2 app độc lập)
+- WCAG AAA accessibility
 
 ### Ngoài Phạm Vi
 - Sync lên server
-- Authentication
-- Multi-user
-- Printer driver
+- Authentication/multi-user
+- Printer driver integration
+- Cloud backup
+- Real-time collaboration
 
 ## Timeline
 
 | Giai Đoạn | Mô Tả | Trạng Thái |
 |-----------|-------|-----------|
-| **v1.0** | MVP core features | ✓ Hoàn tất |
-| **v1.1** | Tối ưu UX, bug fixes | Planed |
+| **v1.0** | Gas app MVP | ✓ Hoàn tất (02/03/2026) |
+| **v1.1** | Gas app: UX, bug fixes | ✓ Hoàn tất |
+| **v1.2** | Gas app: History archiving | ✓ Hoàn tất |
+| **v1.3** | **Revenue app launch** | ✓ Hoàn tất (03/03/2026) |
+| **v1.4** | Polish & optimization | Planning |
 | **v2.0** | Sync server, auth | Backlog |
 
 ## Nhân Lực
@@ -185,6 +271,8 @@ User Interface (HTML/CSS)
 
 ## Rủi Ro & Giảm Thiểu
 
+### Gas App Risks
+
 | Rủi Ro | Xác Suất | Tác Động | Giảm Thiểu |
 |--------|----------|----------|-----------|
 | localStorage full | Cao | Data loss | Xóa history auto |
@@ -192,6 +280,15 @@ User Interface (HTML/CSS)
 | Seri duplicate | Thấp | Confusion | Warn duplicate |
 | Input error | Trung | Wrong gas | Validation hint |
 
+### Revenue App Risks
+
+| Rủi Ro | Xác Suất | Tác Động | Giảm Thiểu |
+|--------|----------|----------|-----------|
+| Financial data loss | Trung | Business impact | Auto-save debounce |
+| Accidental delete | Trung | Data recovery needed | Confirm dialog |
+| Export format issue | Thấp | Incompatible xlsx | Test with Excel |
+| Two apps conflict | Rất Thấp | Cache issue | Separate cache names |
+
 ---
 
-**Phiên Bản**: 1.0 | **Cập Nhật**: 02/03/2026
+**Phiên Bản**: 1.3 | **Cập Nhật**: 03/03/2026

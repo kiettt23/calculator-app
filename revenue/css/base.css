@@ -1,0 +1,120 @@
+/* ========== Reset & Base ========== */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+html {
+  font-size: 18px;
+  -webkit-text-size-adjust: 100%;
+  -webkit-tap-highlight-color: rgba(8, 145, 178, 0.15);
+}
+
+body {
+  font-family: 'Be Vietnam Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Noto Sans', sans-serif;
+  background: var(--bg-page);
+  color: var(--text-primary);
+  line-height: 1.57;
+  padding-bottom: calc(120px + var(--safe-bottom));
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ========== Offline Bar ========== */
+.offline-bar {
+  background: var(--red-700);
+  color: white;
+  text-align: center;
+  padding: 8px 16px;
+  font-size: 0.83rem;
+  font-weight: 600;
+  display: none;
+}
+.offline-bar.show { display: block; }
+
+/* ========== App Header — Teal Gradient ========== */
+.app-header {
+  background: linear-gradient(135deg, #0E7490 0%, #0891B2 50%, #06B6D4 100%);
+  color: white;
+  padding: calc(20px + var(--safe-top)) 20px 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  position: relative;
+}
+.app-header::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 3px;
+  background: var(--rv-green);
+}
+.header-logo {
+  height: 52px;
+  width: auto;
+  border-radius: 12px;
+  flex-shrink: 0;
+}
+.header-text { text-align: center; }
+.app-header h1 {
+  font-size: 1.33rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+.app-header p {
+  font-size: 0.78rem;
+  opacity: 0.7;
+  margin-top: 2px;
+  font-weight: 400;
+}
+
+/* ========== Summary Bar (sticky) ========== */
+.summary-bar {
+  background: var(--bg-card);
+  padding: 14px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: var(--shadow-md);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  border-bottom: 3px solid var(--rv-teal);
+}
+.summary-main { display: flex; flex-direction: column; }
+.summary-label {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.summary-value {
+  font-size: 1.67rem;
+  font-weight: 700;
+  color: var(--rv-teal-dark);
+  line-height: 1.2;
+}
+.summary-details {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.detail-chip {
+  font-size: 0.72rem;
+  font-weight: 500;
+  padding: 4px 10px;
+  border-radius: 20px;
+}
+.detail-chip b { font-weight: 700; }
+.chip-ck {
+  color: var(--rv-teal-dark);
+  background: var(--rv-teal-50);
+}
+.chip-ck b { color: var(--rv-teal-dark); }
+.chip-tm {
+  color: var(--rv-amber);
+  background: var(--rv-amber-100);
+}
+.chip-tm b { color: var(--rv-amber); }
+.detail-sep {
+  color: var(--border);
+  font-size: 0.83rem;
+}

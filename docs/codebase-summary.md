@@ -173,4 +173,158 @@ localStorage.setItem()
 
 ---
 
-**Phiên Bản**: 1.2 | **Cập Nhật**: 02/03/2026
+---
+
+## Sổ Doanh Thu (Revenue Ledger App)
+
+### Cấu Trúc Tệp
+
+```
+revenue/
+├── index.html              # Main HTML (115 LOC)
+├── sw.js                   # Service Worker, network-first (71 LOC)
+├── manifest.json           # PWA manifest
+├── assets/
+│   ├── icon-180.png, icon-192.png, icon-512.png
+│   └── generate-icons.py   # Icon generator script
+├── js/
+│   ├── constants.js        # Storage key (3 LOC)
+│   ├── utils.js            # formatVND, parseVND, dates, toast, confirm (132 LOC)
+│   ├── storage.js          # localStorage CRUD (81 LOC)
+│   ├── state.js            # App state management (66 LOC)
+│   ├── render.js           # DOM rendering (102 LOC)
+│   ├── handlers.js         # Event handlers (156 LOC)
+│   ├── print.js            # Print view generation (87 LOC)
+│   ├── export.js           # Excel export via SheetJS (73 LOC)
+│   └── main.js             # Entry point (95 LOC)
+├── css/
+│   ├── variables.css       # Teal design tokens (37 LOC)
+│   ├── base.css            # Reset, header, summary bar (83 LOC)
+│   ├── components.css      # Form, entries, buttons, modal, toast (341 LOC)
+│   ├── responsive.css      # Media queries 768/1024px (59 LOC)
+│   └── print.css           # @media print A4 layout (75 LOC)
+└── lib/
+    └── xlsx.full.min.js    # SheetJS vendored for offline
+```
+
+**Tổng LOC JS**: ~785 (9 modules) | **Tổng LOC CSS**: ~595 (5 files)
+**Phụ Thuộc**: SheetJS (vendored) | **Framework**: Vanilla JS | **Build**: Không cần
+
+### Module Dependencies (js/)
+
+```
+constants.js ← storage.js, state.js
+utils.js     ← storage.js, render.js, handlers.js, print.js, export.js
+storage.js   ← state.js, handlers.js
+state.js     ← render.js, handlers.js, export.js, main.js
+render.js    ← handlers.js, main.js
+handlers.js  ← main.js
+print.js     ← main.js
+export.js    ← main.js
+```
+
+Không có circular dependency.
+
+### Mô Tả Từng Module
+
+#### js/constants.js
+App-wide constants:
+- `STORAGE_KEY` = 'so-doanh-thu-entries' — localStorage key cho entries
+
+#### js/utils.js
+Pure utility functions:
+- `formatVND(amount)` — định dạng số tiền VND (1500000 → "1.500.000 ₫")
+- `parseVND(str)` — parse tiền tệ từ input
+- `formatDate(dateStr)` — "2026-03-03" → "3/3/2026"
+- `getTodayDate()` — date string hôm nay
+- `showToast(message)` — toast notification 2.5s
+- `showConfirm(message)` — Promise-based custom confirm modal
+
+#### js/storage.js
+localStorage CRUD:
+- `getEntries()` — lấy tất cả daily entries
+- `saveEntries(entries)` — lưu array entries
+- `addEntry(entry)` — thêm entry mới
+- `updateEntry(date, updates)` — cập nhật entry theo date
+- `deleteEntry(date)` — xóa entry
+- `getMonthEntries(year, month)` — lấy entries tháng
+
+#### js/state.js
+App state & persistence:
+- `state` — `{ entries: [{date, ck, tm, note}] }` (exported const)
+- `loadState()` — restore từ localStorage
+- `saveState()` — lưu state (debounce 800ms)
+
+#### js/render.js
+DOM rendering:
+- `renderDailyEntries()` — render danh sách entries hôm nay
+- `renderMonthlyTable()` — render summary table tháng
+- `updateMonthlyTotals()` — cập nhật tổng CK/TM tháng
+- `createEntryRow(entry)` — tạo HTML cho 1 entry
+
+#### js/handlers.js
+Event handlers:
+- `onAddEntry()` — thêm entry mới
+- `onDeleteEntry(date)` — xóa entry (with confirm)
+- `onEditEntry(date, field, value)` — chỉnh sửa entry
+- `onSelectMonth(year, month)` — switch month view
+- `initDatePicker()` — setup date controls
+- `initMonthTabs()` — setup month navigation
+
+#### js/print.js
+In phiếu:
+- `generatePrintView()` — render A4 layout từ month data
+- `printForm()` — gọi window.print()
+
+#### js/export.js
+Xuất Excel:
+- `exportToExcel(year, month)` — export tháng ra .xlsx dùng SheetJS
+- `exportAllData()` — export tất cả data
+
+### Data Flow
+
+```
+User Input (CK/TM entry)
+       ↓
+onAddEntry() [handlers.js]
+       ↓
+updateEntry() [storage.js]
+       ↓
+saveState() debounce 800ms [state.js]
+       ↓
+localStorage.setItem()
+       ↓
+renderMonthlyTable() [render.js]
+```
+
+### localStorage Schema (Revenue App)
+
+```js
+// so-doanh-thu-entries — tất cả daily entries
+[
+  { date: "2026-03-03", ck: 1500000, tm: 500000, note: "Bán thuốc" },
+  { date: "2026-03-02", ck: 1200000, tm: 300000, note: "Bán xăng" }
+]
+```
+
+### Design Tokens (Teal Palette)
+
+| Token | Giá Trị | Sử Dụng |
+|-------|--------|--------|
+| Primary | #0891B2 | Buttons, headers, highlights |
+| Light | #E0F2FE | Background, inputs |
+| Dark | #064E78 | Text, borders |
+| Success | #10B981 | Positive values |
+| Danger | #EF4444 | Delete, warnings |
+
+### Accessibility
+
+- **WCAG AAA** compliance
+- Contrast ratio >= 7:1
+- Font: Be Vietnam Pro (variable weight)
+- Touch targets 44px minimum
+- Keyboard navigation supported
+
+---
+
+**Phiên Bản**: 1.3 | **Cập Nhật**: 03/03/2026

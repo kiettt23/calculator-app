@@ -1,0 +1,75 @@
+/* ========== Print Styles — Sổ Doanh Thu ========== */
+/* A4-optimised. Hides all screen UI; shows only #printView. */
+
+@media print {
+  body {
+    background: white;
+    font-family: 'Times New Roman', serif;
+    font-size: 12pt;
+    line-height: 1.5;
+    padding: 0;
+  }
+
+  /* Hide all screen elements */
+  .no-print,
+  .app-header,
+  .summary-bar,
+  .entry-form,
+  .month-filter,
+  .entry-list,
+  .actions,
+  .toast,
+  .confirm-overlay,
+  .offline-bar { display: none !important; }
+
+  /* Show print container */
+  .print-view { display: block !important; padding: 10mm; }
+
+  @page { size: A4; margin: 10mm; }
+
+  /* ---- Header ---- */
+  .print-header { text-align: center; margin-bottom: 20pt; }
+  .print-header h1 { font-size: 18pt; margin-bottom: 6pt; }
+  .print-header p  { font-size: 12pt; }
+
+  /* ---- Table ---- */
+  .print-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 11pt;
+    margin-bottom: 10pt;
+  }
+
+  .print-table th,
+  .print-table td {
+    border: 1px solid #333;
+    padding: 4pt 6pt;
+    text-align: center;
+  }
+
+  .print-table th {
+    background: #eee !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+    font-weight: 700;
+  }
+
+  .print-table .text-left  { text-align: left; }
+  .print-table .text-right { text-align: right; }
+
+  /* Repeat header on each printed page */
+  thead { display: table-header-group; }
+  tr    { page-break-inside: avoid; }
+
+  /* Empty day — muted colour */
+  .empty-day td { color: #999; }
+
+  /* Totals row */
+  .totals-row td {
+    border-top: 2px solid #333;
+    font-weight: 700;
+    background: #f5f5f5 !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+}

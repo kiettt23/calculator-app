@@ -516,4 +516,4 @@ calculateGas(999999, 1) // → 999998
 
 ---
 
-**Phiên Bản**: 1.0 | **Cập Nhật**: 02/03/2026
+**Phiên Bản**: 1.3 | **Cập Nhật**: 03/03/2026 | **Note**: Chuẩn này áp dụng cho cả Gas app và Revenue app

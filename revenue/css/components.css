@@ -1,0 +1,447 @@
+/* ========== Lucide Icon Sizing ========== */
+.label-icon { width: 15px; height: 15px; vertical-align: -2px; opacity: 0.6; }
+.btn-icon { width: 18px; height: 18px; margin-right: 6px; }
+
+/* ========== Entry Form ========== */
+.entry-form {
+  padding: 20px 16px;
+  background: var(--bg-card);
+  margin: 12px;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-md);
+}
+
+.form-section { margin-bottom: 16px; }
+.form-section:last-of-type { margin-bottom: 12px; }
+
+.form-section > label,
+.form-section-label {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  font-weight: 600;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.form-row-split { display: flex; gap: 10px; }
+.input-group { flex: 1; }
+.input-group label {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+/* ========== Vietnamese Date Picker (Gas App Pattern) ========== */
+.date-picker-vn {
+  display: flex;
+  gap: 8px;
+}
+.date-field {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.date-field .date-label {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  font-weight: 500;
+  text-align: center;
+}
+.date-field select {
+  width: 100%;
+  padding: 12px 8px;
+  border: 2px solid var(--border);
+  border-radius: 8px;
+  font-size: 1.11rem;
+  font-family: inherit;
+  font-weight: 600;
+  color: var(--text-primary);
+  background: var(--bg-card);
+  text-align: center;
+  min-height: 50px;
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2394A3B8' stroke-width='2.5'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.date-field select:focus {
+  outline: none;
+  border-color: var(--rv-teal);
+  background-color: var(--rv-teal-50);
+  box-shadow: 0 0 0 3px rgba(8, 145, 178, 0.12);
+}
+
+/* ========== Input Fields ========== */
+.input-wrap {
+  position: relative;
+}
+.input-suffix {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  font-weight: 500;
+  pointer-events: none;
+}
+
+.currency-input, .note-input {
+  width: 100%;
+  padding: 14px 12px;
+  border: 2px solid var(--border);
+  border-radius: 8px;
+  font-size: 1.11rem;
+  min-height: 52px;
+  font-family: inherit;
+  color: var(--text-primary);
+  background: var(--bg-card);
+  transition: border-color 0.2s, box-shadow 0.2s;
+  -webkit-appearance: none;
+  appearance: none;
+}
+.currency-input { text-align: right; font-weight: 600; padding-right: 42px; }
+
+.currency-input:focus, .note-input:focus {
+  outline: none;
+  border-color: var(--rv-teal);
+  background: var(--rv-teal-50);
+  box-shadow: 0 0 0 3px rgba(8, 145, 178, 0.12);
+}
+
+.currency-input::placeholder, .note-input::placeholder {
+  color: #CBD5E1;
+  font-size: 0.89rem;
+  font-weight: 400;
+}
+
+/* ========== Form Total Row ========== */
+.form-total-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 0 12px;
+  margin-top: 4px;
+  border-top: 2px solid var(--rv-teal-100);
+}
+.form-total-label { font-weight: 600; color: var(--text-secondary); }
+.form-total-value {
+  font-size: 1.44rem;
+  font-weight: 700;
+  color: var(--rv-teal-dark);
+}
+
+/* ========== Save Button (green CTA) ========== */
+.btn-save {
+  width: 100%;
+  padding: 16px;
+  background: linear-gradient(135deg, #059669, #047857);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 1.11rem;
+  font-weight: 700;
+  min-height: 56px;
+  cursor: pointer;
+  font-family: inherit;
+  box-shadow: 0 4px 14px rgba(5, 150, 105, 0.30);
+  transition: opacity 0.15s, transform 0.1s;
+  -webkit-tap-highlight-color: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+.btn-save:active { opacity: 0.85; transform: scale(0.98); }
+
+/* ========== Month Filter ========== */
+.month-filter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  padding: 16px 12px;
+  background: var(--bg-card);
+  margin: 14px 12px 0;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+.btn-month-nav {
+  width: 44px;
+  height: 44px;
+  border: 2px solid var(--border);
+  border-radius: 10px;
+  background: var(--bg-card);
+  cursor: pointer;
+  font-family: inherit;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--rv-teal);
+  -webkit-tap-highlight-color: transparent;
+  transition: background 0.15s, border-color 0.15s;
+}
+.btn-month-nav svg { width: 20px; height: 20px; }
+.btn-month-nav:active {
+  background: var(--rv-teal-50);
+  border-color: var(--rv-teal);
+}
+
+.month-label {
+  font-size: 1.06rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  min-width: 120px;
+  text-align: center;
+}
+
+/* ========== Entry List & Entry Rows ========== */
+.entry-list {
+  padding: 10px 12px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.entry-row {
+  background: var(--bg-card);
+  border-radius: var(--radius);
+  padding: 14px 12px 14px 16px;
+  box-shadow: var(--shadow);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  border-left: 4px solid var(--rv-teal);
+  transition: background 0.15s;
+  -webkit-tap-highlight-color: transparent;
+}
+.entry-row:active { background: var(--rv-teal-50); }
+
+.entry-date {
+  font-weight: 700;
+  color: var(--rv-teal-dark);
+  min-width: 44px;
+  font-size: 0.94rem;
+  flex-shrink: 0;
+}
+
+.entry-body {
+  flex: 1;
+  min-width: 0;
+}
+
+.entry-amounts {
+  display: flex;
+  gap: 4px 6px;
+  flex-wrap: wrap;
+}
+.entry-amounts .detail-chip {
+  font-size: 0.67rem;
+  padding: 2px 8px;
+  white-space: nowrap;
+}
+
+.entry-note {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  margin-top: 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.entry-total {
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--text-primary);
+  text-align: right;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.entry-delete {
+  width: 36px;
+  height: 36px;
+  border: none;
+  background: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  -webkit-tap-highlight-color: transparent;
+  transition: background 0.15s, color 0.15s;
+}
+.entry-delete svg { width: 16px; height: 16px; }
+.entry-delete:active { background: var(--red-100); color: var(--red-700); }
+
+.entry-empty {
+  text-align: center;
+  padding: 40px 20px;
+  color: var(--text-muted);
+  font-size: 0.94rem;
+}
+
+/* ========== Action Buttons ========== */
+.actions {
+  padding: 16px 12px calc(16px + var(--safe-bottom));
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.btn-row { display: flex; gap: 10px; }
+.btn-row .btn { flex: 1; }
+
+.btn {
+  padding: 14px 20px;
+  border: none;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  text-align: center;
+  min-height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-family: inherit;
+  transition: opacity 0.15s, transform 0.1s;
+  -webkit-tap-highlight-color: transparent;
+}
+.btn:active { opacity: 0.85; transform: scale(0.98); }
+
+.btn-print {
+  background: var(--rv-teal);
+  color: white;
+  box-shadow: 0 3px 10px rgba(8, 145, 178, 0.22);
+}
+
+.btn-export {
+  background: white;
+  color: var(--rv-teal);
+  border: 2px solid var(--rv-teal-100);
+}
+
+.btn-dev {
+  background: transparent;
+  color: var(--text-muted);
+  border: 1.5px dashed var(--text-muted);
+  font-size: 0.83rem;
+  min-height: 44px;
+}
+
+/* ========== Confirm Modal ========== */
+.confirm-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 500;
+  padding: 20px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.18s ease;
+}
+
+.confirm-overlay.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.confirm-box {
+  background: var(--bg-card);
+  border-radius: var(--radius);
+  padding: 24px 20px 20px;
+  width: 100%;
+  max-width: 320px;
+  box-shadow: 0 8px 32px rgba(8, 145, 178, 0.18);
+  transform: translateY(8px);
+  transition: transform 0.18s ease;
+}
+
+.confirm-overlay.show .confirm-box { transform: translateY(0); }
+
+.confirm-message {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 20px;
+  text-align: center;
+  line-height: 1.5;
+}
+
+.confirm-actions { display: flex; gap: 10px; }
+
+.btn-confirm-cancel, .btn-confirm-ok {
+  flex: 1;
+  padding: 14px 10px;
+  border-radius: 8px;
+  font-size: 0.94rem;
+  font-weight: 600;
+  cursor: pointer;
+  min-height: 50px;
+  font-family: inherit;
+  transition: opacity 0.15s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.btn-confirm-cancel {
+  background: var(--bg-page);
+  color: var(--text-secondary);
+  border: 1.5px solid var(--border);
+}
+
+.btn-confirm-ok {
+  background: var(--rv-teal);
+  color: white;
+  border: none;
+  box-shadow: 0 3px 10px rgba(8, 145, 178, 0.25);
+}
+
+.btn-confirm-cancel:active, .btn-confirm-ok:active { opacity: 0.82; }
+
+/* ========== Toast Notification ========== */
+.toast {
+  position: fixed;
+  bottom: calc(24px + var(--safe-bottom));
+  left: 50%;
+  transform: translateX(-50%) translateY(100%);
+  background: var(--text-primary);
+  color: white;
+  padding: 12px 24px;
+  border-radius: 24px;
+  font-size: 0.89rem;
+  font-weight: 500;
+  opacity: 0;
+  transition: all 0.3s ease;
+  z-index: 2000;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+.toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* ========== Print View (hidden on screen) ========== */
+.print-view { display: none; }
