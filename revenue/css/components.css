@@ -339,12 +339,50 @@
   border: 2px solid var(--rv-teal-100);
 }
 
+.btn-share {
+  background: var(--rv-amber);
+  color: white;
+  box-shadow: 0 3px 10px rgba(217, 119, 6, 0.22);
+}
+
 .btn-dev {
   background: transparent;
   color: var(--text-muted);
   border: 1.5px dashed var(--text-muted);
   font-size: 0.83rem;
   min-height: 44px;
+}
+
+/* ========== Print Mode (opened via shared link) ========== */
+body.print-mode .app-header,
+body.print-mode .entry-form,
+body.print-mode .summary-bar,
+body.print-mode .month-filter,
+body.print-mode .entry-list,
+body.print-mode .actions,
+body.print-mode .offline-bar,
+body.print-mode .toast,
+body.print-mode .confirm-overlay { display: none !important; }
+
+body.print-mode { padding-bottom: 0; background: white; }
+
+body.print-mode .print-view {
+  display: block !important;
+  padding: 20px;
+}
+
+.print-instruction {
+  text-align: center;
+  padding: 16px;
+  background: var(--rv-teal-50);
+  color: var(--rv-teal-dark);
+  font-weight: 600;
+  font-size: 0.9rem;
+  border-bottom: 2px solid var(--rv-teal);
+}
+
+@media print {
+  .print-instruction { display: none; }
 }
 
 /* ========== Confirm Modal ========== */

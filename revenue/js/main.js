@@ -2,13 +2,14 @@
 import { loadEntries } from './state.js';
 import { renderSummary, renderEntryList, updateMonthLabel } from './render.js';
 import { initForm, onEditEntry, onDeleteEntry } from './handlers.js';
-import { printMonth } from './print.js';
+import { printMonth, sharePrintLink, handlePrintFromURL } from './print.js';
 import { exportExcel } from './export.js';
 import { showToast, getTodayISO } from './utils.js';
 
 /* Expose functions for inline HTML onclick handlers */
 window.printMonth = printMonth;
 window.exportExcel = exportExcel;
+window.sharePrintLink = sharePrintLink;
 window.onEditEntry = onEditEntry;
 window.onDeleteEntry = onDeleteEntry;
 
@@ -82,6 +83,12 @@ function initIOSKeyboardDismiss() {
 
 /* ========== Init ========== */
 document.addEventListener('DOMContentLoaded', () => {
+  /* Check if opened via print link — skip normal UI init */
+  if (handlePrintFromURL()) {
+    if (window.lucide) window.lucide.createIcons();
+    return;
+  }
+
   loadEntries();
   initForm();
   updateMonthLabel();
@@ -92,6 +99,5 @@ document.addEventListener('DOMContentLoaded', () => {
   initInstallPrompt();
   registerServiceWorker();
 
-  /* Initialize Lucide icons after all DOM is ready */
   if (window.lucide) window.lucide.createIcons();
 });

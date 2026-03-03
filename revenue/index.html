@@ -27,7 +27,9 @@
   <div class="offline-bar" id="offlineBar">Không có kết nối mạng</div>
 
   <header class="app-header">
-    <img src="assets/icon-180.png" alt="Sổ Doanh Thu" class="header-logo">
+    <div class="header-icon">
+      <i data-lucide="book-open-text"></i>
+    </div>
     <div class="header-text">
       <h1>SỔ DOANH THU</h1>
       <p>Ghi chép hằng ngày</p>
@@ -124,6 +126,9 @@
         <i data-lucide="file-spreadsheet" class="btn-icon"></i> Xuất Excel
       </button>
     </div>
+    <button class="btn btn-share" onclick="sharePrintLink()" type="button">
+      <i data-lucide="share-2" class="btn-icon"></i> In từ máy tính
+    </button>
     <button class="btn btn-dev" id="btnInstall" onclick="installApp()" type="button" style="display:none">
       <i data-lucide="download" class="btn-icon"></i> Cài ứng dụng
     </button>
